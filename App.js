@@ -2,16 +2,29 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-
-/*
-  The following two import statements are required for navigation between screens.
-  I watched this youtube video to implement navigation: https://youtu.be/9K7JCQbOHVA
-  In order for these import statements to work (and for the app to run without error), you have to
-  install the libraries and dependencies required for stack navigation @ https://reactnavigation.org/docs/getting-started
-  using $npm install.
-*/
+// need these for page-to-page navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
+// @refresh reset
+import * as firebase from 'firebase'
+import 'firebase/firestore'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
+  authDomain: "game-of-life-278b0.firebaseapp.com",
+  projectId: "game-of-life-278b0",
+  storageBucket: "game-of-life-278b0.appspot.com",
+  messagingSenderId: "348963765560",
+  appId: "1:348963765560:web:574af962b80ce3063415cd",
+  measurementId: "G-4L1EWPSGLR"
+};
+
+//  Initialize Firebase...  
+//  The conditional makes sure that it only creates the firebase project the first time
+if (firebase.apps.length === 0){
+  firebase.initializeApp(firebaseConfig);
+}
 
 function HomeScreen({navigation}){
   return (
