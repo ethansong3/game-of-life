@@ -4,7 +4,6 @@ import * as firebase from 'firebase'
 import 'firebase/firestore'
 import "firebase/auth";
 import { useState } from 'react';
-import { NavigationHelpersContext } from '@react-navigation/native';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
@@ -15,8 +14,6 @@ const firebaseConfig = {
   appId: "1:348963765560:web:574af962b80ce3063415cd",
   measurementId: "G-4L1EWPSGLR"
 };
-
-var USER_INFO = {};
 
 export default function AuthScreen({navigation}){
   const [user_text, setUser_text] = useState('');
@@ -71,7 +68,6 @@ function signup({navigation}, user,pw){
     // Signed in 
     USER_INFO = userCredential.user;
     navigation.navigate("Home");
-    console.log("signed up");
     // ...
   })
   .catch((error) => {
