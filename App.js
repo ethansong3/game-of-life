@@ -33,8 +33,8 @@ const Stack = createStackNavigator();
 export default function App() {
   return(
     <NavigationContainer style = {styles.container}>
-      <Stack.Navigator initialRouteName='Auth'>
-        <Stack.Screen name='Auth' component={AuthScreen}/>
+      <Stack.Navigator initialRouteName='Login'>
+        <Stack.Screen name='Login' component={AuthScreen}/>
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Log' component={LogScreen}/>
       </Stack.Navigator>

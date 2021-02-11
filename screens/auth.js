@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
 import * as firebase from 'firebase'
 import 'firebase/firestore'
+import "firebase/auth";
+import { useState } from 'react';
+import { NavigationHelpersContext } from '@react-navigation/native';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
@@ -13,30 +16,77 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
+var USER_INFO = {};
+
 export default function AuthScreen({navigation}){
-    const windowWidth = useWindowDimensions().width;
-    const windowHeight = useWindowDimensions().height;
-    return (
-      <View style={styles.container}>
-        <Text>Game of Life</Text>
-        <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1 }}
-        placeholder = "Email"/>
-        <Text/>
-        <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1}}
-        placeholder = "Password"/>
-        
-        <View style={styles.fixToText}>      
+  const [user_text, setUser_text] = useState('');
+  const [pw_text, setPw_text] = useState('');
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
+  return (
+    <View style={styles.container}>
+      <Text>Game of Life</Text>
+      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
+      placeholder = "Email"
+      onChangeText={user_text => setUser_text(user_text)}
+      />
+      <Text/>
+      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
+      placeholder = "Password"
+      secureTextEntry={true}
+      onChangeText={pw_text => setPw_text(pw_text)}
+      />
+      
+      <View style={styles.fixToText}>      
         <Button title="Sign Up"
-  
-        onPress={() => navigation.navigate('Home')} />
+        onPress={() => signup({navigation}, user_text,pw_text)}/>
         <Button title="Log In"
-        onPress={() => navigation.navigate('Home')} /></View>
+        
+        onPress={() => login({navigation}, user_text, pw_text)}/>
       </View>
-    );
+    </View>
+  );
 }
 
+function login({navigation},user,pw){
+  firebase.auth().signInWithEmailAndPassword(user, pw)
+  .then((userCredential) => {
+    // Signed in
+    USER_INFO = userCredential.user;
+    console.log("logged in");
+    navigation.navigate("Home");
+    console.log(USER_INFO);
+    // ...
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    createAlert(errorCode, errorMessage);
+  });
+}
 
+function signup({navigation}, user,pw){
+  firebase.auth().createUserWithEmailAndPassword(user, pw)
+  .then((userCredential) => {
+    // Signed in 
+    USER_INFO = userCredential.user;
+    navigation.navigate("Home");
+    console.log("signed up");
+    // ...
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    createAlert(errorCode, errorMessage);
+  });
+}
 
+function createAlert(errorCode = '',errorMessage){
+  return Alert.alert(
+    errorCode,
+    errorMessage
+  );
+}
 const styles = StyleSheet.create({
     container: {
       flex: 1,
