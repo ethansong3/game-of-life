@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
+import { useWindowDimensions , StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import AuthScreen from "./screens/auth.js";
+import HomeScreen from "./screens/home.js";
+import LogScreen from "./screens/log.js";
 // need these for page-to-page navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -26,31 +28,13 @@ if (firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
 }
 
-function HomeScreen({navigation}){
-  return (
-    <View style={styles.container}>
-      <Text>Game of Life</Text>
-      <Text>(this is the home screen)</Text>
-      <Button title="go to log"
-      onPress={() => navigation.navigate('Log')} />
-    </View>
-  )
-}
-
-function LogScreen(){
-  return (
-    <View style={styles.container}>
-      <Text>this might be where we have the user log their hours</Text>
-    </View>
-  )
-}
-
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+  return(
+    <NavigationContainer style = {styles.container}>
+      <Stack.Navigator initialRouteName='Auth'>
+        <Stack.Screen name='Auth' component={AuthScreen}/>
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Log' component={LogScreen}/>
       </Stack.Navigator>
