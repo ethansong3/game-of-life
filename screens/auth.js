@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
+import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert, Image } from 'react-native';
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import "firebase/auth";
 import { useState } from 'react';
+import { Assets } from '@react-navigation/stack';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
@@ -22,7 +23,10 @@ export default function AuthScreen({navigation}){
   const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
-      <Text>Game of Life</Text>
+        <Image 
+        style={{width:250, height:100}}
+        source={require('../assets/tempIcon.png')}
+        />
       <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
       placeholder = "Email"
       onChangeText={user_text => setUser_text(user_text)}
@@ -35,11 +39,10 @@ export default function AuthScreen({navigation}){
       />
       
       <View style={styles.fixToText}>      
-        <Button title="Create Account"
-        onPress={() => navigation.navigate("Create Account")} />
-
         <Button title="Log In"
         onPress={() => login({navigation}, user_text, pw_text)}/>
+        <Button title="Need Help?"
+        onPress={() => navigation.navigate("Create Account")} />
       </View>
     </View>
   );
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     fixToText: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'space-between',
     }
   });

@@ -23,7 +23,7 @@ export default function createAccountScreen({navigation}){
   const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
-      <Text>Game of Life</Text>
+      <Text>Here's some information we need to know.</Text>
       <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
       placeholder = "Name"
       onChangeText={user_name => setName_text(user_name)}
