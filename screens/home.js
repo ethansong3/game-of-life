@@ -24,7 +24,7 @@ function test(){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#DCD0FF',
+      backgroundColor: '#FFFFFF',
       alignItems: 'center',
       justifyContent: 'center',
     },

@@ -6,6 +6,10 @@ import "firebase/auth";
 import { useState } from 'react';
 import { Assets } from '@react-navigation/stack';
 
+// https://www.npmjs.com/package/react-native-really-awesome-button
+import AwesomeButton from "react-native-really-awesome-button";
+import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
   authDomain: "game-of-life-278b0.firebaseapp.com",
@@ -23,26 +27,35 @@ export default function AuthScreen({navigation}){
   const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
-        <Image 
-        style={{width:250, height:100}}
-        source={require('../assets/tempIcon.png')}
+      <Image 
+      style={{width:250, height:100}}
+      source={require('../assets/tempIcon.png')}
+      />
+      <View style={styles.space}/>
+      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
+        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+          placeholder = "Email"
+          onChangeText={user_text => setUser_text(user_text)}
         />
-      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
-      placeholder = "Email"
-      onChangeText={user_text => setUser_text(user_text)}
-      />
-      <Text/>
-      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
-      placeholder = "Password"
-      secureTextEntry={true}
-      onChangeText={pw_text => setPw_text(pw_text)}
-      />
-      
-      <View style={styles.fixToText}>      
-        <Button title="Log In"
-        onPress={() => login({navigation}, user_text, pw_text)}/>
-        <Button title="Need Help?"
-        onPress={() => navigation.navigate("Create Account")} />
+      </AwesomeButtonCartman>
+      <View style={styles.space}/>
+      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
+        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+          placeholder = "Password"
+          onChangeText={user_text => setUser_text(user_text)}
+          secureTextEntry={true}
+          onChangeText={pw_text => setPw_text(pw_text)}
+        />
+      </AwesomeButtonCartman>
+      <View style={styles.space}/><View style={styles.space}/>
+      <View style={styles.fixToText}>
+        <AwesomeButtonCartman width={150} type="secondary" onPress={() => login({navigation}, user_text, pw_text)}>
+            Log In
+        </AwesomeButtonCartman>
+        <View style={styles.space}/>
+        <AwesomeButtonCartman width={150} type="secondary" onPress={() => createAlert("Need Help?", "Well you don't get any.")}>
+            Need Help?
+        </AwesomeButtonCartman>      
       </View>
     </View>
   );
@@ -74,12 +87,16 @@ function createAlert(errorCode = '',errorMessage){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#DCD0FF',
+      backgroundColor: '#FFFFFF',
       alignItems: 'center',
       justifyContent: 'center',
     },
     fixToText: {
       flexDirection: 'column',
       justifyContent: 'space-between',
-    }
+    },
+    space: {
+      height:10,
+    },
+
   });

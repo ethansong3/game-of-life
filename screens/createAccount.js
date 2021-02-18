@@ -5,6 +5,10 @@ import 'firebase/firestore'
 import "firebase/auth";
 import { useState } from 'react';
 
+// https://www.npmjs.com/package/react-native-really-awesome-button
+import AwesomeButton from "react-native-really-awesome-button";
+import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
   authDomain: "game-of-life-278b0.firebaseapp.com",
@@ -24,25 +28,35 @@ export default function createAccountScreen({navigation}){
   return (
     <View style={styles.container}>
       <Text>Here's some information we need to know.</Text>
-      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
-      placeholder = "Name"
-      onChangeText={user_name => setName_text(user_name)}
-      />
-      <Text/>
-      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
-      placeholder = "Email"
-      onChangeText={user_text => setUser_text(user_text)}
-      />
-      <Text/>
-      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
-      placeholder = "Password"
+      <View style={styles.space}/>
+      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
+        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+          placeholder = "Name"
+          onChangeText={user_name => setName_text(user_name)}
+        />
+      </AwesomeButtonCartman>
+      <View style={styles.space}/>
+      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
+        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+          placeholder = "Email"
+          onChangeText={user_text => setUser_text(user_text)}
+        />
+      </AwesomeButtonCartman>
+      <View style={styles.space}/>
+      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
+        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+          placeholder = "Password"
       secureTextEntry={true}
       onChangeText={pw_text => setPw_text(pw_text)}
-      />
+        />
+      </AwesomeButtonCartman>
+
+      <View style={styles.space}/><View style={styles.space}/>
       
-      <View style={styles.fixToText}>      
-        <Button title="Create Account"
-        onPress={() => signup({navigation}, user_text, pw_text, user_name)} />
+      <View style={styles.fixToText}>    
+        <AwesomeButtonCartman width={150} type="secondary" onPress={() => signup({navigation}, user_text, pw_text, user_name)}>
+            Create Account
+        </AwesomeButtonCartman> 
       </View>
     </View>
   )
@@ -52,7 +66,7 @@ function signup({navigation}, user,pw,name){
   firebase.auth().createUserWithEmailAndPassword(user, pw)
   .then((userCredential) => {
     // Signed in 
-    USER_INFO = userCredential.user;
+    var USER_INFO = userCredential.user;
     navigation.navigate("Home");
 
     // add to Firestore
@@ -79,12 +93,15 @@ function createAlert(errorCode = '',errorMessage){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DCD0FF',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
   fixToText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }
+  },
+  space: {
+      height:10,
+  },
 });
