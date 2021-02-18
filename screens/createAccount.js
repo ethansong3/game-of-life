@@ -15,14 +15,20 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
-export default function AuthScreen({navigation}){
+export default function createAccountScreen({navigation}){
   const [user_text, setUser_text] = useState('');
   const [pw_text, setPw_text] = useState('');
+  const [user_name, setName_text] = useState('');
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
       <Text>Game of Life</Text>
+      <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
+      placeholder = "Name"
+      onChangeText={user_name => setName_text(user_name)}
+      />
+      <Text/>
       <TextInput style={{ height: windowHeight/20, width: windowWidth/1.25, borderColor: 'black', borderWidth: 1.5}}
       placeholder = "Email"
       onChangeText={user_text => setUser_text(user_text)}
@@ -36,24 +42,25 @@ export default function AuthScreen({navigation}){
       
       <View style={styles.fixToText}>      
         <Button title="Create Account"
-        onPress={() => navigation.navigate("Create Account")} />
-
-        <Button title="Log In"
-        onPress={() => login({navigation}, user_text, pw_text)}/>
+        onPress={() => signup({navigation}, user_text, pw_text, user_name)} />
       </View>
     </View>
-  );
+  )
 }
 
-function login({navigation},user,pw){
-  firebase.auth().signInWithEmailAndPassword(user, pw)
-  .then((userCredential) => { 
-    // Signed in
+function signup({navigation}, user,pw,name){
+  firebase.auth().createUserWithEmailAndPassword(user, pw)
+  .then((userCredential) => {
+    // Signed in 
     USER_INFO = userCredential.user;
-    console.log("logged in");
     navigation.navigate("Home");
-    console.log(USER_INFO);
-    // ...
+
+    // add to Firestore
+    return firebase.firestore().collection('Users').doc(USER_INFO.uid)
+    .set({
+      name: name,
+      email: user
+    })
   })
   .catch((error) => {
     var errorCode = error.code;
@@ -68,15 +75,16 @@ function createAlert(errorCode = '',errorMessage){
     errorMessage
   );
 }
+
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#DCD0FF',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#DCD0FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
+});

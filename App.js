@@ -4,6 +4,7 @@ import { useWindowDimensions , StyleSheet, Text, View, Button, TextInput } from 
 import AuthScreen from "./screens/auth.js";
 import HomeScreen from "./screens/home.js";
 import LogScreen from "./screens/log.js";
+import createAccountScreen from "./screens/createAccount.js";
 // need these for page-to-page navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -35,6 +36,7 @@ export default function App() {
     <NavigationContainer style = {styles.container}>
       <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Login' component={AuthScreen}/>
+        <Stack.Screen name='Create Account' component={createAccountScreen}/>
         <Stack.Screen name='Home' component={HomeScreen}/>
         <Stack.Screen name='Log' component={LogScreen}/>
       </Stack.Navigator>
