@@ -36,11 +36,11 @@ export default function App() {
   return(
     <NavigationContainer style = {styles.container}>
       <Stack.Navigator initialRouteName='Welcome'>
-        <Stack.Screen name='Welcome' component={WelcomeScreen}/>
-        <Stack.Screen name='Sign In' component={AuthScreen}/>
-        <Stack.Screen name='Create Account' component={createAccountScreen}/>
-        <Stack.Screen name='Home' component={HomeScreen}/>
-        <Stack.Screen name='Log' component={LogScreen}/>
+        <Stack.Screen  name='Welcome' component={WelcomeScreen}/>
+        <Stack.Screen  name='Sign In' component={AuthScreen}/>
+        <Stack.Screen  name='Create Account' component={createAccountScreen}/>
+        <Stack.Screen options={{headerLeft: null, gestureEnabled: false}} name='Home' component={HomeScreen}/>
+        <Stack.Screen  name='Log' component={LogScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

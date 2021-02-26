@@ -1,10 +1,21 @@
 import React, {Component} from 'react';
 import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-export default function LogScreen(){
+// https://www.npmjs.com/package/react-native-really-awesome-button
+import AwesomeButton from "react-native-really-awesome-button";
+import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+
+export default function LogScreen({navigation}){
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
-      <Text>this might be where we have the user log their hours</Text>
+      <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.55,top:windowHeight/50}}height={windowHeight/14} width={windowWidth/3.2}>
+        New Entry
+      </AwesomeButtonCartman>
+  
+      <Text>My Entries</Text>
+      
     </View>
   )
 }
@@ -12,7 +23,7 @@ export default function LogScreen(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DCD0FF',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },

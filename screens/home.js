@@ -6,7 +6,6 @@ export default function HomeScreen({navigation}){
   return (
     <View style={styles.container}>
       <Text>Game of Life</Text>
-      <Text>(this is the home screen)</Text>
       <Button title="go to log"
       onPress={() => navigation.navigate('Log')} />
       <Button title="print user info to console"
