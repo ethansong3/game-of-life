@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useRef, Component} from 'react';
 import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
 import * as firebase from 'firebase'
 import 'firebase/firestore'
@@ -25,6 +25,10 @@ export default function createAccountScreen({navigation}){
   const [user_name, setName_text] = useState('');
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
+
+  const ref_input2 = useRef();
+  const ref_input3 = useRef();
+
   return (
     <View style={styles.container}>
       <Text>Here's some information we need to know.</Text>
@@ -33,6 +37,10 @@ export default function createAccountScreen({navigation}){
         <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
           placeholder = "Name"
           onChangeText={user_name => setName_text(user_name)}
+          autoFocus={true}
+          returnKeyType="next"
+          onSubmitEditing={() => ref_input2.current.focus()}
+          blurOnSubmit={false}
         />
       </AwesomeButtonCartman>
       <View style={styles.space}/>
@@ -40,14 +48,21 @@ export default function createAccountScreen({navigation}){
         <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
           placeholder = "Email"
           onChangeText={user_text => setUser_text(user_text)}
+          returnKeyType="next"
+          onSubmitEditing={() => ref_input3.current.focus()}
+          ref={ref_input2}
+          blurOnSubmit={false}
         />
       </AwesomeButtonCartman>
       <View style={styles.space}/>
       <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
         <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
           placeholder = "Password"
-      secureTextEntry={true}
-      onChangeText={pw_text => setPw_text(pw_text)}
+          secureTextEntry={true}
+          onChangeText={pw_text => setPw_text(pw_text)}
+          ref={ref_input3}
+          returnKeyType="done"
+          blurOnSubmit={true}
         />
       </AwesomeButtonCartman>
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useRef, Component} from 'react';
 import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert, Image } from 'react-native';
 import * as firebase from 'firebase'
 import 'firebase/firestore'
@@ -25,6 +25,9 @@ export default function AuthScreen({navigation}){
   const [pw_text, setPw_text] = useState('');
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
+
+  const ref_input2 = useRef();
+
   return (
     <View style={styles.container}>
       <Image 
@@ -33,9 +36,13 @@ export default function AuthScreen({navigation}){
       />
       <View style={styles.space}/>
       <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
-        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
+        <TextInput returnKeyType="next" style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
           placeholder = "Email"
           onChangeText={user_text => setUser_text(user_text)}
+          autoFocus={true}
+          returnKeyType="next"
+          onSubmitEditing={() => ref_input2.current.focus()}
+          blurOnSubmit={false}
         />
       </AwesomeButtonCartman>
       <View style={styles.space}/>
@@ -45,6 +52,9 @@ export default function AuthScreen({navigation}){
           onChangeText={user_text => setUser_text(user_text)}
           secureTextEntry={true}
           onChangeText={pw_text => setPw_text(pw_text)}
+          returnKeyType="done"
+          blurOnSubmit={true}
+          ref={ref_input2}
         />
       </AwesomeButtonCartman>
       <View style={styles.space}/><View style={styles.space}/>
