@@ -13,23 +13,23 @@ import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/
 
 let Entries = [
   {
-    id: 1,
+    id: "1",
     game: "League of Legends",
-    date: "3/1/2021",
+    date: "March 3, 2021",
     length: 1,
     feeling: "angry"
   },
   {
-    id: 2,
+    id: "2",
     game: "osu!",
-    date: "2/23/2021",
+    date: "February 21, 2021",
     length: 1,
     feeling: "okay"
   },
   {
-    id: 3,
+    id: "3",
     game: "Minecraft",
-    date: "2/5/2021",
+    date: "February 2, 2021",
     length: 2,
     feeling: "happy"
   },
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     left: 10
   },
   listDetails: {
-    flex: 0.5,
+    flex: 0.3,
     alignItems: "flex-end",
   }
 });
