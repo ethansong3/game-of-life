@@ -5,6 +5,7 @@ import * as firebase from 'firebase'
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+import StopWatchContainer from '../stopwatch/stopwatch.container';
 
 export default function HomeScreen({navigation}){
   const windowWidth = useWindowDimensions().width;
@@ -12,17 +13,13 @@ export default function HomeScreen({navigation}){
   return (
     
     <View style={styles.container}>
-      
-
       <AwesomeButtonCartman style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/50}} onPress={() => navigation.navigate('Welcome')}
                             height={windowHeight/18} width={windowWidth/4}>
         Sign Out
       </AwesomeButtonCartman>
-      <Text>Game of Life</Text>
-      <Button title="go to log"
-      onPress={() => navigation.navigate('Log')} />
-      <Button title="print user info to console"
-      onPress={() => test()} />
+      <Button title="Play" onPress={() => navigation.navigate('Play')} />
+      <Button title="go to log" onPress={() => navigation.navigate('Log')} />
+      <Button title="print user info to console"  onPress={() => test()} />
     </View>
   )
 }

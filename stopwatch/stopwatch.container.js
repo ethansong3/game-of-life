@@ -81,6 +81,7 @@ export default class StopWatchContainer extends Component {
     };
     handleLap = (id, hour, min, sec, mood) => {
         if(this.state.start){
+            id = id.toString();
             this.id++
             this.lapArr = [
                 ...this.lapArr,
@@ -110,6 +111,7 @@ function Item({id, hour, min, sec, mood }){
     return(
       <TouchableOpacity style={styles.listItem}>
         <AwesomeButtonCartman height={windowHeight/10} width={windowWidth/1.1}>
+            <Text style={styles.listDetails}>{id}</Text>
             <Text style={styles.listDate}>{hour}</Text>
             <Text style={styles.listDate}>{min}</Text>
             <Text style={styles.listDate}>{sec}</Text>

@@ -5,8 +5,9 @@ import AuthScreen from "./screens/auth.js";
 import HomeScreen from "./screens/home.js";
 import LogScreen from "./screens/log.js";
 import WelcomeScreen from "./screens/welcome.js";
-import createAccountScreen from "./screens/createAccount.js";
-import newEntryScreen from "./screens/newEntry.js";
+import CreateAccountScreen from "./screens/createAccount.js";
+import NewEntryScreen from "./screens/newEntry.js";
+import PlayScreen from "./screens/play.js";
 
 // need these for page-to-page navigation
 import {NavigationContainer} from '@react-navigation/native';
@@ -40,10 +41,11 @@ export default function App() {
       <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen  name='Welcome' component={WelcomeScreen}/>
         <Stack.Screen  name='Sign In' component={AuthScreen}/>
-        <Stack.Screen  name='Create Account' component={createAccountScreen}/>
+        <Stack.Screen  name='Create Account' component={CreateAccountScreen}/>
         <Stack.Screen options={{headerLeft: null, gestureEnabled: false}} name='Home' component={HomeScreen}/>
+        <Stack.Screen  name='Play' component={PlayScreen}/>
         <Stack.Screen  name='Log' component={LogScreen}/>
-        <Stack.Screen  name='New Entry' component={newEntryScreen}/>
+        <Stack.Screen  name='New Entry' component={NewEntryScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
