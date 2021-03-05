@@ -4,12 +4,7 @@ import { TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
-
-/*
-
-  TODO: implement deletion and addition of entries
-
-*/
+import FlatListItem from '../stopwatch/entrylist.js';
 
 let Entries = [
   {
@@ -52,7 +47,7 @@ function Item({ id, game, date, length, feeling }){
 
   };
 
-  return(
+  return(  
     <TouchableOpacity style={styles.listItem}>
       <AwesomeButtonCartman  onPress={() => handlePress(id)} placeholder type="secondary" height={windowHeight/10} width={windowWidth/1.1}>
         <Text style={styles.listDate}>{game}</Text>
@@ -70,22 +65,26 @@ export default function LogScreen({navigation}){
   return (
     <View style={styles.container}>
       <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.4,top:windowHeight/80}} onPress={() => navigation.navigate('New Entry')}
-                            height={windowHeight/17} width={windowWidth/3.8}>
+                            height={windowHeight/15} width={windowWidth/3.8}>
         New Session
       </AwesomeButtonCartman>
-      <View style={styles.space}/>
+      {/* <View style={styles.space}/>
       <FlatList 
+        keyExtractor={(item) => item.id}
         data={Entries} 
         renderItem={({item}) => (
           <Item id={item.id} game={item.game} date={item.date} length={item.length} feeling={item.feeling} />
-        )} />
+        )} /> */}
+        <View style={styles.space}/>
+        <FlatListItem></FlatListItem>
     </View>
+    
   )
 }
 
 const styles = StyleSheet.create({
   space: {
-    height:75,
+    height:50,
   },
   container: {
     flex: 1,
