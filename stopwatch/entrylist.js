@@ -5,36 +5,10 @@ import Swipeout from 'react-native-swipeout';
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+import AddModal from './AddModal';
 // import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
-
-
-let Entries = [
-    {
-      id: "1",
-      game: "League of Legends",
-      date: "March 3, 2021",
-      length: 1,
-      feeling: "angry"
-    },
-    {
-      id: "2",
-      game: "osu!",
-      date: "February 21, 2021",
-      length: 1,
-      feeling: "okay"
-    },
-    {
-      id: "3",
-      game: "Minecraft",
-      date: "February 2, 2021",
-      length: 2,
-      feeling: "happy"
-    },
-  ];
-
-
-
+import logData from "../data/logData.js"
   
 class FlatListItem extends Component {
     
@@ -68,7 +42,7 @@ class FlatListItem extends Component {
                             [                              
                               {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                               {text: 'Yes', onPress: () => {        
-                                Entries.splice(this.props.index, 1); 
+                                logData.splice(this.props.index, 1); 
                                 //Refresh FlatList ! 
                                 this.props.parentFlatList.refreshFlatList(deletingRow);
                               }},
@@ -129,19 +103,32 @@ export default class BasicFlatList extends Component {
         this.state = ({
             deletedRowKey: null,            
         });
+        this._onPressAdd = this._onPressAdd.bind(this);
     }
-    refreshFlatList = (deletedKey) => {
+    refreshFlatList = (activeKey) => {
         this.setState((prevState) => {
             return {
-                deletedRowKey: deletedKey
+                deletedRowKey: activeKey
             };
         });
+
     }
+
+    _onPressAdd(){
+        // alert("You add Item.");
+        this.refs.addModal.showAddModal();
+    }
+
     render() {
       return (
-        <View style={{flex: 1, marginTop: 34}}>
-            <FlatList 
-                data={Entries}
+        <View style={{flex: 1, marginTop: 10}}>
+            <AwesomeButtonCartman marginTop={10} style={{position:'absolute', top: 10, right: 10}} onPress={() => this._onPressAdd()}
+                height={60} width={100}>
+                New Session
+            </AwesomeButtonCartman>
+            <View style={{height: 85}}/>
+            <FlatList
+                data={logData}
                 renderItem={({item, index})=>{
                     //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
                     return (
@@ -150,8 +137,10 @@ export default class BasicFlatList extends Component {
                     </FlatListItem>);
                 }}
                 >
-
             </FlatList>
+            <AddModal ref={'addModal'} parentFlatList={this} >
+
+            </AddModal>
         </View>
       );
     }

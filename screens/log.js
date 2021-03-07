@@ -6,29 +6,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 import FlatListItem from '../stopwatch/entrylist.js';
 
-let Entries = [
-  {
-    id: "1",
-    game: "League of Legends",
-    date: "March 3, 2021",
-    length: 1,
-    feeling: "angry"
-  },
-  {
-    id: "2",
-    game: "osu!",
-    date: "February 21, 2021",
-    length: 1,
-    feeling: "okay"
-  },
-  {
-    id: "3",
-    game: "Minecraft",
-    date: "February 2, 2021",
-    length: 2,
-    feeling: "happy"
-  },
-];
+import logData from '../data/logData.js';
 
 function Item({ id, game, date, length, feeling }){
 
@@ -36,7 +14,7 @@ function Item({ id, game, date, length, feeling }){
   const windowHeight = useWindowDimensions().height;
 
   const handlePress = (id) => {
-    const entry = Entries.find((entr) => {
+    const entry = logData.find((entr) => {
       return entr.id === id;
     });
     
@@ -64,18 +42,18 @@ export default function LogScreen({navigation}){
   const windowHeight = useWindowDimensions().height;
   return (
     <View style={styles.container}>
-      <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.4,top:windowHeight/80}} onPress={() => navigation.navigate('New Entry')}
+      {/* <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.4,top:windowHeight/80}} onPress={() => navigation.navigate('New Entry')}
                             height={windowHeight/15} width={windowWidth/3.8}>
         New Session
-      </AwesomeButtonCartman>
+      </AwesomeButtonCartman> */}
       {/* <View style={styles.space}/>
       <FlatList 
         keyExtractor={(item) => item.id}
-        data={Entries} 
+        data={logData} 
         renderItem={({item}) => (
           <Item id={item.id} game={item.game} date={item.date} length={item.length} feeling={item.feeling} />
         )} /> */}
-        <View style={styles.space}/>
+        {/* <View style={styles.space}/> */}
         <FlatListItem></FlatListItem>
     </View>
     
