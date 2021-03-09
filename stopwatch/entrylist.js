@@ -9,73 +9,73 @@ import AddModal from './AddModal';
 // import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
 import logData from "../data/logData.js"
-  
+
 class FlatListItem extends Component {
-    
+
     constructor(props) {
-        super(props);   
+        super(props);
         this.state = {
             activeRowKey: null
-        };   
-             
+        };
+
     }
-    
-    render() {  
-         
+
+    render() {
+
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowId, direction) => {
                 if(this.state.activeRowKey != null) {
                     this.setState({ activeRowKey: null });
-                }              
-            },          
+                }
+            },
             onOpen: (secId, rowId, direction) => {
                 this.setState({ activeRowKey: this.props.item.key });
-            },      
+            },
             right: [
-                { 
-                    onPress: () => {    
-                        const deletingRow = this.state.activeRowKey;          
+                {
+                    onPress: () => {
+                        const deletingRow = this.state.activeRowKey;
                         Alert.alert(
                             'Alert',
                             'Are you sure you want to delete ?',
-                            [                              
+                            [
                               {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                              {text: 'Yes', onPress: () => {        
-                                logData.splice(this.props.index, 1); 
-                                //Refresh FlatList ! 
+                              {text: 'Yes', onPress: () => {
+                                logData.splice(this.props.index, 1);
+                                //Refresh FlatList !
                                 this.props.parentFlatList.refreshFlatList(deletingRow);
                               }},
                             ],
                             { cancelable: true }
-                          ); 
-                    }, 
-                    text: 'Delete', type: 'delete' 
+                          );
+                    },
+                    text: 'Delete', type: 'delete'
                 }
-            ],  
-            rowId: this.props.index, 
+            ],
+            rowId: this.props.index,
             sectionId: 1,
-            backgroundColor: 'white' 
-        };      
+            backgroundColor: 'white'
+        };
 
-        return (  
+        return (
             <Swipeout {...swipeSettings}>
                 <View style={{
                 flex: 1,
-                flexDirection:'column',   
+                flexDirection:'column',
                 alignItems: 'center',
                 backgroundColor: 'white',
-                marginVertical: 5                            
+                marginVertical: 5
                 }}>
-                                 
-                    <AwesomeButtonCartman placeholder type="secondary" height={100} width={350} flex={1} flexDirection={'column'} alignItems={'stretch'}>       
+
+                    <AwesomeButtonCartman placeholder type="secondary" height={100} width={350} flex={1} flexDirection={'column'} alignItems={'stretch'}>
                         <Text style={styles.flatListItem}>{this.props.item.game}</Text>
                         <Text style={styles.flatListItem}>{this.props.item.date}</Text>
                         <Text style={styles.flatListItem}>{this.props.item.length}</Text>
                         <Text style={styles.flatListItem}>{this.props.item.feeling}</Text>
-                    </AwesomeButtonCartman>             
-                </View>   
-            </Swipeout>            
+                    </AwesomeButtonCartman>
+                </View>
+            </Swipeout>
         );
     }
 }
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flatListItem: {
         color: 'white',
         padding: 10,
-        fontSize: 14,  
+        fontSize: 14,
         alignItems: "flex-start",
     },
     listDate: {
@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
 
 export default class BasicFlatList extends Component {
     constructor(props) {
-        super(props);     
+        super(props);
         this.state = ({
-            deletedRowKey: null,            
+            deletedRowKey: null,
         });
         this._onPressAdd = this._onPressAdd.bind(this);
     }

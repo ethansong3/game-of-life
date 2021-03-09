@@ -4,6 +4,7 @@ import { TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import FlatListItem from '../stopwatch/entrylist.js';
 
 import logData from '../data/logData.js';
@@ -17,15 +18,15 @@ function Item({ id, game, date, length, feeling }){
     const entry = logData.find((entr) => {
       return entr.id === id;
     });
-    
+
     Alert.alert(
-      "Entry Details", 
+      "Entry Details",
       `Game : ${entry.game} \n Date: ${entry.date} \n Length: ${entry.length} \n Feeling: ${entry.feeling}`,
     );
 
   };
 
-  return(  
+  return(
     <TouchableOpacity style={styles.listItem}>
       <AwesomeButtonCartman  onPress={() => handlePress(id)} placeholder type="secondary" height={windowHeight/10} width={windowWidth/1.1}>
         <Text style={styles.listDate}>{game}</Text>
@@ -47,16 +48,20 @@ export default function LogScreen({navigation}){
         New Session
       </AwesomeButtonCartman> */}
       {/* <View style={styles.space}/>
-      <FlatList 
+      <FlatList
         keyExtractor={(item) => item.id}
-        data={logData} 
+        data={logData}
         renderItem={({item}) => (
           <Item id={item.id} game={item.game} date={item.date} length={item.length} feeling={item.feeling} />
         )} /> */}
         {/* <View style={styles.space}/> */}
+        <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Home')}
+                              height={windowHeight/18} width={windowWidth/4}>
+          Back
+        </AwesomeButtonRick>
         <FlatListItem></FlatListItem>
     </View>
-    
+
   )
 }
 

@@ -27,7 +27,7 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
-//  Initialize Firebase...  
+//  Initialize Firebase...
 //  The conditional makes sure that it only creates the firebase project the first time
 if (firebase.apps.length === 0){
   firebase.initializeApp(firebaseConfig);
@@ -38,7 +38,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return(
     <NavigationContainer style = {styles.container}>
-      <Stack.Navigator initialRouteName='Welcome'>
+      <Stack.Navigator screenOptions={{headerShown: false,}} initialRouteName='Welcome'>
         <Stack.Screen  name='Welcome' component={WelcomeScreen}/>
         <Stack.Screen  name='Sign In' component={AuthScreen}/>
         <Stack.Screen  name='Create Account' component={CreateAccountScreen}/>
