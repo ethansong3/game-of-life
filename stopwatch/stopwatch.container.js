@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, BackHandler, FlatList, useWindowDimensions} from 'react-native';
+import { Alert, StyleSheet, Text, View, TouchableOpacity, BackHandler, FlatList, useWindowDimensions, Dimensions} from 'react-native';
 import  React, { Component } from 'react';
 import { Fontisto } from '@expo/vector-icons';
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
-
+import { Constants, Accelerometer, Pedometer } from 'expo-sensors';
 //from https://codersera.com/blog/first-react-native-app-stopwatch/
 
 let padToTwo = (number) => (number <= 9 ? `0${number}`: number);
@@ -15,20 +15,134 @@ export default class StopWatchContainer extends Component {
             hour: 0,
             min: 0,
             sec: 0,
+            oldPosition: { x: 0, y: 0, z: 0 },
+            accelerometerData: { x: 0, y: 0, z: 0 },
+            _accelerometerSubscription: null,
+            alert: false,
+            alertTime: -1,
+            hasMovedEnough: false,
+            isPedometerAvailable: 'checking',
+            pastStepCount: 0,
+            currentStepCount: 0,
         } 
         this.id = 0;
         this.lapArr = [];
         this.interval = null;
+    }  
+
+    // START OF ACCELEROMETER CODE
+    // componentDidMount() {
+    //     this._subscribeToAccelerometer();
+    // }
+    _subscribe = () => {
+        this._subscription = Pedometer.watchStepCount(result => {
+          this.setState({
+            currentStepCount: result.steps,
+          });
+        });
+    
+        Pedometer.isAvailableAsync().then(
+          result => {
+            this.setState({
+              isPedometerAvailable: String(result),
+            });
+          },
+          error => {
+            this.setState({
+              isPedometerAvailable: 'Could not get isPedometerAvailable: ' + error,
+            });
+          }
+        );
+    
+        const end = new Date();
+        const start = new Date();
+        start.setDate(end.getDate() - 1);
+        Pedometer.getStepCountAsync(start, end).then(
+          result => {
+            this.setState({ pastStepCount: result.steps });
+          },
+          error => {
+            this.setState({
+              pastStepCount: 'Could not get stepCount: ' + error,
+            });
+          }
+        );
+      };
+    
+      _unsubscribe = () => {
+        this._subscription && this._subscription.remove();
+        this._subscription = null;
+      };
+
+    componentWillMount() {
+        const { width, height } = Dimensions.get('window');
+        this.screenWidth = width;
+        this.screenHeight = height;
+        this.boxWidth = this.screenWidth/10.0
     }
+
+
+
+    _subscribeToAccelerometer = () => {
+        this.state._accelerometerSubscription = Accelerometer.addListener(accelerometerData => this.setState({ accelerometerData })
+        );
+    };
+
+    _unsubscribeFromAccelerometer = () => {
+        this.state._accelerometerSubscription && this.state._accelerometerSubscription.remove();
+        this.state._accelerometerSubscription = null;
+    };
+
+    createAlert(errorCode = '',errorMessage){
+        return Alert.alert(
+          errorCode,
+          errorMessage
+        );
+      }
+
+    // END OF ACCELEROMETER CODE
+
     componentWillUnmount() {
+        // this._unsubscribeFromAccelerometer();
         // fix Warning: Can't perform a React state update on an unmounted component
         this.setState = (state,callback)=>{
             return;
         };
     }
     render(){
+        console.log(this.state.hasMovedEnough);
+        if (this.state.sec == 1){
+            this.state.oldPosition = this.state.accelerometerData;
+        }
+
+        if (Math.abs(this.state.oldPosition.x - this.state.accelerometerData.x) > 1 || Math.abs(this.state.oldPosition.y - this.state.accelerometerData.y) > 1 || Math.abs(this.state.oldPosition.z - this.state.accelerometerData.z) > 2 ){
+            this.state.hasMovedEnough = true;
+        }
+
+        // CHANGE TO 30-45 MINUTES!
+        if (this.state.alert == false && this.state.sec != 0 && this.state.sec % 10 == 0 && this.state.hasMovedEnough ){
+                this.createAlert("Still alive?", "Rest breaks: Every 30 to 60 minutes, take a brief rest break. During this break, stand up, stretch, move around, and do something else. Drink some water. You'll feel better after a short break.")
+                this.state.alert = true;
+                this.state.alertTime = this.state.sec;
+        }
+        if (this.state.alert == true && this.state.sec > this.state.alertTime){
+            this.state.hasMoved = false;
+            this.state.oldPosition = this.state.accelerometerData;
+            this.state.alert = false;
+        }
+
+        // console.log("CURRENT POSITION: ", this.state.accelerometerData);
+        // console.log("OLD POSITION: ", this.state.oldPosition);
         return (
+            
             <View style={styles.container}> 
+                <Text style={{marginLeft: 50, marginTop:100}}>x = {this.state.accelerometerData.x.toFixed(2)}{', '}
+                y = {this.state.accelerometerData.y.toFixed(2)}{', '}
+                z = {this.state.accelerometerData.z.toFixed(2)}</Text>  
+                <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable}</Text>
+                <Text>Steps taken in the last 24 hours: {this.state.pastStepCount}</Text>
+                <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
+
                 <View style={styles.parent}>
                     <Text style={styles.child}>{padToTwo(this.state.hour) + ' : '}</Text>
                     <Text style={styles.child}>{padToTwo(this.state.min) + ' : '}</Text>
@@ -57,6 +171,10 @@ export default class StopWatchContainer extends Component {
     };
     handleStart = () => {
         if(this.state.start) {
+            // turn on accelerometer
+            this._subscribeToAccelerometer();
+            this._subscribe();
+
             this.interval = setInterval(() => {
                 if(this.state.sec !== 59){
                     this.setState({
@@ -76,6 +194,9 @@ export default class StopWatchContainer extends Component {
                 }
             }, 1000);
         }else{
+            // turn off accelerometer
+            this._unsubscribe();
+            this._unsubscribeFromAccelerometer();
             clearInterval(this.interval);
         }
     };
@@ -91,6 +212,10 @@ export default class StopWatchContainer extends Component {
         }
     };
     handleReset = () => {
+        // turn off accelerometer
+        this._unsubscribe();
+        this._unsubscribeFromAccelerometer();
+
         this.setState({
             sec: 0,
             min: 0,
