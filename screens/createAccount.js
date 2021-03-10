@@ -1,13 +1,16 @@
 import React, { useRef, Component} from 'react';
-import { useWindowDimensions, StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
+import { useWindowDimensions, StyleSheet, Text, SafeAreaView, View, Button, TextInput, Alert, Image } from 'react-native';
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import "firebase/auth";
 import { useState } from 'react';
+import styles from './style';
+import images from './images';
 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
@@ -30,57 +33,29 @@ export default function createAccountScreen({navigation}){
   const ref_input3 = useRef();
 
   return (
-    <View style={styles.container}>
-      <Text>Here's some information we need to know.</Text>
-      <View style={styles.space}/>
-      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
-        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
-          placeholder = "Name"
-          onChangeText={user_name => setName_text(user_name)}
-          autoFocus={true}
-          returnKeyType="next"
-          onSubmitEditing={() => ref_input2.current.focus()}
-          blurOnSubmit={false}
-        />
-      </AwesomeButtonCartman>
-      <View style={styles.space}/>
-      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
-        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
-          placeholder = "Email"
-          onChangeText={user_text => setUser_text(user_text)}
-          returnKeyType="next"
-          onSubmitEditing={() => ref_input3.current.focus()}
-          ref={ref_input2}
-          blurOnSubmit={false}
-        />
-      </AwesomeButtonCartman>
-      <View style={styles.space}/>
-      <AwesomeButtonCartman placeholder height={windowHeight/13} width={windowWidth/1.25}>
-        <TextInput style={{ marginLeft: 50, height: windowHeight/20, width: windowWidth/1.25}}
-          placeholder = "Password"
-          secureTextEntry={true}
-          onChangeText={pw_text => setPw_text(pw_text)}
-          ref={ref_input3}
-          returnKeyType="done"
-          blurOnSubmit={true}
-        />
-      </AwesomeButtonCartman>
-
-      <View style={styles.space}/><View style={styles.space}/>
-      
-      <View style={styles.fixToText}>    
-        <AwesomeButtonCartman width={150} type="secondary" onPress={() => signup({navigation}, user_text, pw_text, user_name)}>
-            Create Account
-        </AwesomeButtonCartman> 
-      </View>
-    </View>
+    <SafeAreaView style={styles.background}>
+    <Image source={images.backgroundLight} style={styles.backgroundImage}/>
+    <SafeAreaView style = {styles.blank}></SafeAreaView>
+      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                            height={windowHeight/18} width={windowWidth/4}>
+        Sign Out
+      </AwesomeButtonRick>
+      <Text style={[styles.headerText, {color: "#19a629"}]}>Let's make an account!</Text>
+      <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#95d44a" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+      </AwesomeButtonRick>
+      <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#95d44a" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+      </AwesomeButtonRick>
+      <AwesomeButtonRick type = "anchor" size = "large">
+      </AwesomeButtonRick>
+      <SafeAreaView style = {{height: '30%'}}></SafeAreaView>
+    </SafeAreaView>
   )
 }
 
 function signup({navigation}, user,pw,name){
   firebase.auth().createUserWithEmailAndPassword(user, pw)
   .then((userCredential) => {
-    // Signed in 
+    // Signed in
     var USER_INFO = userCredential.user;
     navigation.navigate("Home");
 
@@ -104,19 +79,3 @@ function createAlert(errorCode = '',errorMessage){
     errorMessage
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  space: {
-      height:10,
-  },
-});

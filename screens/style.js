@@ -17,8 +17,8 @@ module.exports = StyleSheet.create
     {
       position: 'absolute',
       top: -10,
-      width: '120%',
-      height: '120%'
+      width: '110%',
+      height: '110%'
     },
     header:
     {
@@ -46,14 +46,12 @@ module.exports = StyleSheet.create
     },
     recommendationBox: // Design for recommendation box
     {
-      position: 'absolute',
-      top: 100,
       height: '20%',
       width: '93%',
       backgroundColor: '#DFFFC7',
       borderColor: "#C7E8AE",
       borderWidth: 2,
-      borderRadius: 25,
+      borderRadius: 50,
       alignItems: 'center',
       justifyContent: 'center'
     },

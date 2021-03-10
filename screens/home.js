@@ -20,18 +20,18 @@ export default function HomeScreen({navigation}){
                             height={windowHeight/18} width={windowWidth/4}>
         Sign Out
       </AwesomeButtonRick>
-
+      <SafeAreaView style = {{height: '5%'}}></SafeAreaView>
       <SafeAreaView style = {styles.recommendationBox}>
         <Text style = {styles.recommendationText}>{getRecommendation()}</Text>
       </SafeAreaView>
 
-        <AwesomeButtonRick style={{position: 'absolute', top:230}} type="anchor" size="large" onPress={() => navigation.navigate('Log')}>
-              <Text style = {styles.anchorButtonText}>Log New Session</Text>
+        <AwesomeButtonRick type="anchor" size="large" onPress={() => navigation.navigate('Log')}>
+              <Text style = {styles.anchorButtonText}>See Logs</Text>
         </AwesomeButtonRick>
-        <AwesomeButtonRick style={{position: 'absolute', top:310}} borderColor= '#76BDE3' borderWidth={2} type="primary" size = "large" onPress={() => test()}>
+        <AwesomeButtonRick type="primary" borderColor= '#76BDE3' borderWidth={2} type="primary" size = "large" onPress={() => test()}>
             <Text style = {styles.primaryButtonText}>Profile DEBUG</Text>
         </AwesomeButtonRick>
-
+        <SafeAreaView style = {{height: '30%'}}></SafeAreaView>
     </SafeAreaView>
   );
 }

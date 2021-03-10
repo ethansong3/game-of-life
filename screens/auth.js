@@ -9,7 +9,7 @@ import { Assets } from '@react-navigation/stack';
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
-
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
   authDomain: "game-of-life-278b0.firebaseapp.com",
@@ -30,7 +30,11 @@ export default function AuthScreen({navigation}){
 
   return (
     <View style={styles.container}>
-      <Image 
+      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                            height={windowHeight/18} width={windowWidth/4}>
+        Sign Out
+      </AwesomeButtonRick>
+      <Image
       style={{width:250, height:100}}
       source={require('../assets/tempIcon.png')}
       />
@@ -65,7 +69,7 @@ export default function AuthScreen({navigation}){
         <View style={styles.space}/>
         <AwesomeButtonCartman width={150} type="secondary" onPress={() => createAlert("Need Help?", "Well you don't get any.")}>
             Need Help?
-        </AwesomeButtonCartman>      
+        </AwesomeButtonCartman>
       </View>
     </View>
   );
@@ -73,7 +77,7 @@ export default function AuthScreen({navigation}){
 
 function login({navigation},user,pw){
   firebase.auth().signInWithEmailAndPassword(user, pw)
-  .then((userCredential) => { 
+  .then((userCredential) => {
     // Signed in
     USER_INFO = userCredential.user;
     console.log("logged in");
