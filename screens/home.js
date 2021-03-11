@@ -25,6 +25,9 @@ export default function HomeScreen({navigation}){
         <Text style = {styles.recommendationText}>{getRecommendation()}</Text>
       </SafeAreaView>
 
+        <AwesomeButtonRick type="anchor" size="large" onPress={() => navigation.navigate('Play')}>
+              <Text style = {styles.anchorButtonText}>Play</Text>
+        </AwesomeButtonRick>
         <AwesomeButtonRick type="anchor" size="large" onPress={() => navigation.navigate('Log')}>
               <Text style = {styles.anchorButtonText}>See Logs</Text>
         </AwesomeButtonRick>

@@ -14,6 +14,7 @@
     "@react-navigation/stack": "^5.14.1",
     "expo": "~40.0.0",
     "expo-firebase-app": "^2.0.0",
+    "expo-sensors": "^10.0.0",
     "expo-status-bar": "~1.0.3",
     "firebase": "^8.2.5",
     "random-string": "^0.2.0",

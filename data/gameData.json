@@ -1,0 +1,29 @@
+{
+    "games": [
+        {
+            "name": "Stardew Valley",
+            "description": "This is the Platonic ideal of a chill-out game. Stardew Valley is ostensibly a farming simulator, but it also has exploration, puzzle-solving, dating, fishing, cooking, and a healthy dose of the occult. It can be a little overwhelming at first, but its easy-to-learn-hard-to-master mechanics will suck you in without stressing you out too much.",
+            "tags": ["therapy", "solo"]
+        },
+        {
+            "name": "Minecraft",
+            "description": "Minecraft is a video game in which players create and break apart various kinds of blocks in three-dimensional worlds. The game's two main modes are Survival and Creative. In Survival, players must find their own building supplies and food. They also interact with blocklike mobs, or moving creatures.",
+            "tags": ["therapy", "solo", "multiplayer"]
+        },
+        {
+            "name":"Animal Crossing",
+            "description": "In Animal Crossing, the player character is a human who lives in a village inhabited by various anthropomorphic animals, carrying out various activities such as fishing, bug catching, and fossil hunting.",
+            "tags": ["therapy", "solo", "multiplayer"]
+        },
+        {
+            "name": "League of Legends",
+            "description": "League of Legends is one of the world's most popular video games, developed by Riot Games. It features a team-based competitive game mode based on strategy and outplaying opponents. Players work with their team to break the enemy Nexus before the enemy team breaks theirs.",
+            "tags": ["Riot Games", "dangerous", "multiplayer"]
+        },
+        {
+            "name": "osu!",
+            "description": "Osu! is a rhythm game primarily developed, published and created by Dean Herbert. Osu! has received generally positive reviews, and is also sometimes recommended by professional players of other games to practice or warm up.",
+            "tags": ["solo", "music", "rhythm"]
+        }
+    ]
+}
