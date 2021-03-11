@@ -101,7 +101,7 @@ function signup({navigation}, user,pw,name){
     return firebase.firestore().collection('Users').doc(USER_INFO.uid)
     .set({
       name: name,
-      email: user
+      email: user,
     })
   })
   .catch((error) => {
