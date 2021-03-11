@@ -18,7 +18,7 @@ module.exports = StyleSheet.create
       position: 'absolute',
       top: -10,
       width: '110%',
-      height: '110%'
+      height: '120%'
     },
     header:
     {
