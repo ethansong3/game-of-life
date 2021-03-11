@@ -6,6 +6,7 @@ import HomeScreen from "./screens/home.js";
 import LogScreen from "./screens/log.js";
 import WelcomeScreen from "./screens/welcome.js";
 import CreateAccountScreen from "./screens/createAccount.js";
+import SurveyScreen from "./screens/survey.js";
 import NewEntryScreen from "./screens/newEntry.js";
 import PlayScreen from "./screens/play.js";
 
@@ -42,7 +43,8 @@ export default function App() {
         <Stack.Screen  name='Welcome' component={WelcomeScreen}/>
         <Stack.Screen  name='Sign In' component={AuthScreen}/>
         <Stack.Screen  name='Create Account' component={CreateAccountScreen}/>
-        <Stack.Screen options={{headerLeft: null, gestureEnabled: false}} name='Home' component={HomeScreen}/>
+        <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Survey' component={SurveyScreen}/>
+        <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Home' component={HomeScreen}/>
         <Stack.Screen  name='Play' component={PlayScreen}/>
         <Stack.Screen  name='Log' component={LogScreen}/>
         <Stack.Screen  name='New Entry' component={NewEntryScreen}/>
