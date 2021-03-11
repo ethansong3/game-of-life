@@ -42,11 +42,11 @@ export default function createAccountScreen({navigation}){
       </AwesomeButtonRick>
       <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
                             height={windowHeight/18} width={windowWidth/4}>
-        Sign Out
+        Back
       </AwesomeButtonRick>
       <Text style={[styles.headerText, {color: "#2e84b1"}]}>Let's make an account!</Text>
       <Text style = {[styles.headerSubText, {color: "#23a190"}]}>We'll start with some basic requests.</Text>
-      <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+      <AwesomeButtonRick placeholder size="large" disabled = {true} backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
           placeholder = "Name"
           onChangeText={user_name => setName_text(user_name)}
@@ -56,7 +56,7 @@ export default function createAccountScreen({navigation}){
           blurOnSubmit={false}
         />
       </AwesomeButtonRick>
-      <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+      <AwesomeButtonRick placeholder size="large" disabled = {true} backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
           placeholder = "Email"
           onChangeText={user_text => setUser_text(user_text)}
@@ -67,7 +67,7 @@ export default function createAccountScreen({navigation}){
           blurOnSubmit={false}
         />
       </AwesomeButtonRick>
-      <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+      <AwesomeButtonRick placeholder size="large" disabled = {true} backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
           placeholder = "Password"
           secureTextEntry={true}
@@ -107,6 +107,10 @@ function signup({navigation}, user,pw,name){
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
+    // Check error messages and give something more human-friendly
+    if (errorCode == "auth/invalid-email") createAlert("Invalid Info", "That email doesn't appear to be correctly formatted.");
+    else if (errorCode == "auth/invalid-password") createAlert("Invalid Info", "Your password must be at least 6 characters.");
+    else if (errorCode == "auth/email-already-exists") createAlert("Invalid Info", "Something went wrong. Try again!");
     createAlert(errorCode, errorMessage);
   });
 }
