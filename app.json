@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/tempIcon.png",
     "splash": {
-      "image": "./assets/tempSplash.png",
+      "image": "./assets/loadingScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
