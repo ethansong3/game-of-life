@@ -22,10 +22,10 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
-export default function createAccountScreen({navigation}){
-  const [user_text, setUser_text] = useState('');
-  const [pw_text, setPw_text] = useState('');
-  const [user_name, setName_text] = useState('');
+export default function SurveyScreen({navigation}){
+  const [averageWeeklyHours, setAverageWeeklyHours] = useState('');
+  const [goalHours, setGoalHours] = useState('');
+  const [averageSessionLength, setAverageSessionLength] = useState('');
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
@@ -36,30 +36,27 @@ export default function createAccountScreen({navigation}){
     <SafeAreaView style={styles.background}>
     <Image source={images.backgroundGreen} style={[styles.backgroundImage, {backgroundColor: "#C7FEFF"}]}/>
     <SafeAreaView style = {styles.blank}></SafeAreaView>
-      <AwesomeButtonRick style={{position:'absolute', left:windowWidth/2,bottom:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Survey')}
-                            height={windowHeight/18} width={windowWidth/3}>
-        skip to survey screen
-      </AwesomeButtonRick>
-      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+      {/* <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
                             height={windowHeight/18} width={windowWidth/4}>
         Sign Out
-      </AwesomeButtonRick>
-      <Text style={[styles.headerText, {color: "#2e84b1"}]}>Let's make an account!</Text>
-      <Text style = {[styles.headerSubText, {color: "#23a190"}]}>We'll start with some basic requests.</Text>
+      </AwesomeButtonRick> */}
+      <Text style={[styles.headerText, {color: "#2e84b1"}]}>Things we want to know...</Text>
+      <Text style = {[styles.headerSubText, {color: "#23a190"}]}>On average, how many hours do you play each week?</Text>
       <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
-          placeholder = "Name"
-          onChangeText={user_name => setName_text(user_name)}
+          placeholder = "(e.g. 15)"
+          onChangeText={averageWeeklyHours => setAverageWeeklyHours(averageWeeklyHours)}
           autoFocus={false}
           returnKeyType="next"
           onSubmitEditing={() => ref_input2.current.focus()}
           blurOnSubmit={false}
         />
       </AwesomeButtonRick>
+      <Text style = {[styles.headerSubText, {color: "#23a190"}]}>How much time would you *like* to spend playing games?</Text>
       <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
-          placeholder = "Email"
-          onChangeText={user_text => setUser_text(user_text)}
+          placeholder = "(e.g. 10)"
+          onChangeText={goalHours => setGoalHours(goalHours)}
           autoFocus={false}
           returnKeyType="next"
           ref={ref_input2}
@@ -67,17 +64,17 @@ export default function createAccountScreen({navigation}){
           blurOnSubmit={false}
         />
       </AwesomeButtonRick>
+      <Text style = {[styles.headerSubText, {color: "#23a190"}]}>How long does a typical gaming session last?</Text>
       <AwesomeButtonRick placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
         <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
-          placeholder = "Password"
-          secureTextEntry={true}
-          onChangeText={pw_text => setPw_text(pw_text)}
+          placeholder = "(e.g. 5)"
+          onChangeText={averageSessionLength => setAverageSessionLength(averageSessionLength)}
           ref={ref_input3}
           returnKeyType="done"
           blurOnSubmit={true}
         />
       </AwesomeButtonRick>
-      <AwesomeButtonRick type = "anchor" size = "large" disabled = {!canSignUp({navigation}, user_text, pw_text, user_name)} onPress = {() => signup({navigation}, user_text, pw_text, user_name)}>
+      <AwesomeButtonRick type = "anchor" size = "large" disabled = {!canSubmit({navigation}, averageWeeklyHours, goalHours, averageSessionLength)} onPress = {() => submit({navigation}, averageWeeklyHours, goalHours, averageSessionLength)}>
         <Text style = {styles.anchorButtonText}>Next</Text>
       </AwesomeButtonRick>
       <SafeAreaView style = {{height: '20%'}}></SafeAreaView>
@@ -85,30 +82,30 @@ export default function createAccountScreen({navigation}){
   )
 }
 
-function canSignUp({navigation}, user, pw, name){
-  if (user == "" || pw == "" || name == "") return false;
+function canSubmit({navigation}, q1, q2, q3){
+  if (q1 == "" || q2 == "" || q3 == "") return false;
   return true;
 }
 
-function signup({navigation}, user,pw,name){
-  firebase.auth().createUserWithEmailAndPassword(user, pw)
-  .then((userCredential) => {
-    // Signed in
-    var USER_INFO = userCredential.user;
-    navigation.navigate("Survey");
+function submit({navigation}, q1, q2, q3){
+  // firebase.auth().createUserWithEmailAndPassword(user, pw)
+  // .then((userCredential) => {
+  //   // Signed in
+  //   var USER_INFO = userCredential.user;
+  navigation.navigate("Home");
 
-    // add to Firestore
-    return firebase.firestore().collection('Users').doc(USER_INFO.uid)
-    .set({
-      name: name,
-      email: user
-    })
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    createAlert(errorCode, errorMessage);
-  });
+  //   // add to Firestore
+  //   return firebase.firestore().collection('Users').doc(USER_INFO.uid)
+  //   .set({
+  //     name: name,
+  //     email: user
+  //   })
+  // })
+  // .catch((error) => {
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   createAlert(errorCode, errorMessage);
+  // });
 }
 
 function createAlert(errorCode = '',errorMessage){
