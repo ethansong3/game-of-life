@@ -40,13 +40,17 @@ export default function SurveyScreen({navigation}){
     <SafeAreaView style={[styles.background]}>
     <Image source={images.backgroundGreen} style={[styles.backgroundImage, {backgroundColor: "#C7FEFF"}]}/>
     <SafeAreaView style = {styles.blank}></SafeAreaView>
+      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                            height={windowHeight/18} width={windowWidth/4}>
+        Back
+      </AwesomeButtonRick>
       <ScrollView contentContainerStyle={{paddingVertical: 20}}>
         {/* <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
                               height={windowHeight/18} width={windowWidth/4}>
           Sign Out
         </AwesomeButtonRick> */}
         <Text style={[styles.headerText, {color: "#2e84b1"}]}>Things we want to know...</Text>
-        <Text style={{height:30}}/>
+        <Text style={{height:10}}/>
         <SafeAreaView>
           <Text style = {[styles.headerSubText, {color: "#23a190"}]}>On average, how many hours do you play each week?</Text>
           <AwesomeButtonRick style={{alignSelf: 'center'}} placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
@@ -84,7 +88,7 @@ export default function SurveyScreen({navigation}){
             />
           </AwesomeButtonRick>
         </SafeAreaView>
-        
+
           <Text style = {[styles.headerSubText, {color: "#23a190"}]}>How long does a typical gaming session last?</Text>
           <AwesomeButtonRick style={{alignSelf: 'center'}} placeholder size="large" backgroundColor="white" borderColor="#7cd98d" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
             <TextInput style={{ marginLeft: windowWidth/1.7, height: windowHeight/20, width: windowWidth/1.25, color: "#349890"}}
@@ -111,12 +115,12 @@ export default function SurveyScreen({navigation}){
           ]}
           defaultValue={null}
           placeholder="Select an option"
-          containerStyle={{alignSelf: 'center', height: 40, width:300}}
-          style={{ backgroundColor: '#fafafa'}}
+          containerStyle={styles.dropDownBox}
+          style={[styles.dropDownBoxContents, {borderTopLeftRadius: 20}, {borderTopRightRadius: 20}, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
           itemStyle={{
               justifyContent: 'flex-start'
           }}
-          dropDownStyle={{backgroundColor: '#fafafa'}}
+          dropDownStyle={[styles.dropDownBoxContents, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
           onChangeItem={item => setSoloOrMultiplayer(
               item.value
           )}
@@ -138,7 +142,9 @@ export default function SurveyScreen({navigation}){
             multipleText="%d items have been selected."
             min={0}
             max={6}
-            containerStyle={{alignSelf: 'center', height: 40, width:300}}
+            containerStyle={styles.dropDownBox}
+            style={[styles.dropDownBoxContents, {borderTopLeftRadius: 20}, {borderTopRightRadius: 20}, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
+            dropDownStyle={[styles.dropDownBoxContents, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
             itemStyle={{
                 justifyContent: 'flex-start'
             }}
@@ -165,7 +171,9 @@ export default function SurveyScreen({navigation}){
             multipleText="%d items have been selected."
             min={0}
             max={8}
-            containerStyle={{alignSelf: 'center', height: 40, width:300}}
+            containerStyle={styles.dropDownBox}
+            style={[styles.dropDownBoxContents, {borderTopLeftRadius: 20}, {borderTopRightRadius: 20}, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
+            dropDownStyle={[styles.dropDownBoxContents, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
             itemStyle={{
                 justifyContent: 'flex-start'
             }}
@@ -175,10 +183,10 @@ export default function SurveyScreen({navigation}){
         />
 
         <Text style={{height:30}}/>
-        
+
         <AwesomeButtonRick style={{alignSelf: 'center'}} type = "anchor" size = "large" disabled = {!canSubmit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices)} onPress = {() => submit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices, genres)}>
           <Text style = {styles.anchorButtonText}>Next</Text>
-        </AwesomeButtonRick>         
+        </AwesomeButtonRick>
       </ScrollView>
     </SafeAreaView>
   )

@@ -3,7 +3,6 @@ import { TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, 
 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
-import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import FlatListItem from '../stopwatch/entrylist.js';
 
@@ -28,12 +27,12 @@ function Item({ id, game, date, length, feeling }){
 
   return(
     <TouchableOpacity style={styles.listItem}>
-      <AwesomeButtonCartman  onPress={() => handlePress(id)} placeholder type="secondary" height={windowHeight/10} width={windowWidth/1.1}>
+      <AwesomeButtonRick  onPress={() => handlePress(id)} placeholder type="secondary" height={windowHeight/10} width={windowWidth/1.1}>
         <Text style={styles.listDate}>{game}</Text>
         <Text style={styles.listDate}>{date}</Text>
         <Text style={styles.listDetails}>{length}</Text>
         <Text style={styles.listDetails}>{feeling}</Text>
-      </AwesomeButtonCartman>
+      </AwesomeButtonRick>
     </TouchableOpacity>
   )
 }
