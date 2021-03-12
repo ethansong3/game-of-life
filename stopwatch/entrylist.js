@@ -15,6 +15,7 @@ import { Fontisto } from '@expo/vector-icons';
 
 var dict = {
   "happy": "smiley",
+  "okay": "neutral",
   "ok": "neutral",
   "angry": "mad"
 }
