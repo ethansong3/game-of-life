@@ -14,12 +14,11 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
-let status = "You've played many games recently.\nWhy not take a break?"; // Default message
+let to_return = "You've played many games recently.\nWhy not take a break?";
 
 // Updates the recommendation
 export function updateRecommendation(new_status)
 {
-  recentSessionReccomendation();
   status = new_status;
 }
 
@@ -34,7 +33,14 @@ export function recentSessionReccomendation()
   var UserDocRef = firebase.firestore().collection('Users').doc((firebase.auth().currentUser).uid);
   UserDocRef.get().then((doc) => {
     if (doc.exists) {
-        console.log("Most recent session:", doc.data().logData[doc.data().logData.length - 1]);
+        // console.log("Most recent session:", doc.data().logData[doc.data().logData.length - 1]);
+        var recentDuration = doc.data().logData[doc.data().logData.length - 1].duration;
+        var averageDuration = doc.data().averageSessionLength;
+        if (recentDuration < averageDuration){
+          to_return = "Your most recent session was shorter than usual! Great work! (●'◡'●)";
+        } else if (recentDuration > averageDuration) {
+          to_return = "Your most recent session was longer than usual! Try your best to limit yourself next time. (┬┬﹏┬┬)";
+        }
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -42,6 +48,7 @@ export function recentSessionReccomendation()
     }).catch((error) => {
         console.log("Error getting document:", error);
     });
+  return to_return;
 }
 
 // Update recommendation based on weekly hours. Perhaps update every Sunday?
