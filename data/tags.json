@@ -1,0 +1,15 @@
+{
+    "solo": ["Animal Crossing", "Fortnite Battle Royale", "Minecraft", "osu!", "Stardew Valley"],
+    "multiplayer": ["Animal Crossing", "Fortnite Battle Royale", "League of Legends", "Minecraft"],
+    "pc": ["League of Legends", "Fortnite Battle Royale", "Minecraft", "osu!", "Stardew Valley"],
+    "shooter": ["Fortnite Battle Royale"],
+    "music": ["osu!"],
+    "rhythm": ["osu!"],
+    "dangerous": ["League of Legends"],
+    "therapy":["Animal Crossing", "Minecraft", "Stardew Valley"],
+    "iphone": ["Fortnite Battle Royale", "League of Legends", "Minecraft"],
+    "android": ["Fortnite Battle Royale"],
+    "ps5": ["Fortnite Battle Royale"],
+    "nswitch": ["Animal Crossing", "Fortnite Battle Royale"],
+    "xbox1":["Fortnite Battle Royale", "Minecraft"]
+}
