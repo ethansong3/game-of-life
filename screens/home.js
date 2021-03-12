@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { useWindowDimensions, Image, StyleSheet, Text, View, SafeAreaView, Button, TextInput, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
-import {getRecommendation} from './recommendation';
+import {getRecommendation, updateRecommendation, status} from './recommendation';
 import styles from './style';
 import images from './images';
 
@@ -40,7 +40,8 @@ export default function HomeScreen({navigation}){
 }
 
 function test(){
-  console.log("test pressed.");
-  var user = firebase.auth().currentUser;
-  console.log(user);
+  // console.log("test pressed.");
+  // var user = firebase.auth().currentUser;
+  // console.log(user);
+  updateRecommendation();
 }

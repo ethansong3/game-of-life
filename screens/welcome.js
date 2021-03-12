@@ -34,7 +34,7 @@ export default function WelcomeScreen({navigation}){
       <AwesomeButtonRick type="primary" size="large" borderColor= '#76BDE3' borderWidth={2} onPress={() => navigation.navigate('Create Account')}>
         <Text style = {styles.primaryButtonText}>Create Account</Text>
       </AwesomeButtonRick>
-      <AwesomeButtonRick type="primary" size="large" borderColor= '#76BDE3' borderWidth={2} onPress={() => login({navigation}, 'davidlieu1@gmail.com', '111111')}>
+      <AwesomeButtonRick type="primary" size="large" borderColor= '#76BDE3' borderWidth={2} onPress={() => login({navigation}, 'ersong@uci.edu', 'powerful')}>
         <Text style = {styles.primaryButtonText}>Dev</Text>
       </AwesomeButtonRick>
       <SafeAreaView style = {{height: '20%'}}></SafeAreaView>
