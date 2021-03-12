@@ -33,7 +33,7 @@ export function recentSessionReccomendation()
   var UserDocRef = firebase.firestore().collection('Users').doc((firebase.auth().currentUser).uid);
   UserDocRef.get().then((doc) => {
     if (doc.exists) {
-        console.log("Most recent session:", doc.data().logData[0]);
+        // console.log("Most recent session:", doc.data().logData[doc.data().logData.length - 1]);
         var recentDuration = doc.data().logData[doc.data().logData.length - 1].duration;
         var averageDuration = doc.data().averageSessionLength;
         if (recentDuration < averageDuration){
