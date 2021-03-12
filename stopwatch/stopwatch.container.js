@@ -1,6 +1,9 @@
 import { Alert, StyleSheet, Text, View, TouchableOpacity, BackHandler, FlatList, useWindowDimensions, Dimensions} from 'react-native';
 import  React, { Component } from 'react';
+import { BlurView } from 'expo-blur';
 import { Fontisto } from '@expo/vector-icons';
+import GameSelectModal from './gameSelectModal.js'
+
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 import { Constants, Accelerometer, Pedometer } from 'expo-sensors';
 //from https://codersera.com/blog/first-react-native-app-stopwatch/
@@ -12,17 +15,24 @@ export default class StopWatchContainer extends Component {
         super(props);
 
         this.state = {
+            game: 'No game selected',
             hour: 0,
             min: 0,
             sec: 0,
             hasMovedEnough: false,
+            firstStart: true,
             isPedometerAvailable: 'checking',
             pastStepCount: 0,
             currentStepCount: 0,
+            starttext: 'start'
         } 
         this.id = 0;
         this.lapArr = [];
         this.interval = null;
+        this._onPressAdd = this._onPressAdd.bind(this);
+        const gameData = require('../data/gameData.json');
+        console.log(gameData.name);
+        
     }  
 
     // Start of Motion Code
@@ -79,7 +89,7 @@ export default class StopWatchContainer extends Component {
         }
 
         // CHANGE TO 30-45 MINUTES!
-        if (this.state.sec % 20 == 0){
+        if (this.state.sec % 5000 == 0){
             if (this.state.sec != 0  && !this.state.hasMovedEnough ){
                 this.createAlert("Still alive?", "Rest breaks: Every 30 to 60 minutes, take a brief rest break. During this break, stand up, stretch, move around, and do something else. Drink some water. You'll feel better after a short break.")
             }
@@ -93,21 +103,22 @@ export default class StopWatchContainer extends Component {
         return (
             
             <View style={styles.container}> 
+                <GameSelectModal ref={'GameSelectModal'} ></GameSelectModal>
                 {/* <Text style={{marginLeft: 50, marginTop:100}}>x = {this.state.accelerometerData.x.toFixed(2)}{', '}
                 y = {this.state.accelerometerData.y.toFixed(2)}{', '}
                 z = {this.state.accelerometerData.z.toFixed(2)}</Text>  
                 <Text>Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable}</Text>
                 <Text>Steps taken in the last 24 hours: {this.state.pastStepCount}</Text> */}
                 <Text style={{marginTop:100}}>Walk! And watch this go up: {this.state.currentStepCount}</Text>
-
+                <Text>Current game: {this.state.game}</Text>
                 <View style={styles.parent}>
                     <Text style={styles.child}>{padToTwo(this.state.hour) + ' : '}</Text>
                     <Text style={styles.child}>{padToTwo(this.state.min) + ' : '}</Text>
                     <Text style={styles.child}>{padToTwo(this.state.sec)}</Text>
                 </View>
                 <View style={styles.buttonParent}>
-                    <TouchableOpacity style={styles.button} onPress = {this.handleToggle}><Text style={styles.buttonText}>Start/Pause</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress = {this.handleReset}><Text style={styles.buttonText}>Stop</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress = {this.handleToggle}><Text style={styles.buttonText}>{this.state.starttext}</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress = {this.handleReset}><Text style={styles.buttonText}>stop & log</Text></TouchableOpacity>
                 </View>
                 <View style={styles.buttonParent}>
                     <Fontisto.Button name ="mad" backgroundColor="white" color = "red" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "angry")}>angry</Fontisto.Button>
@@ -115,12 +126,17 @@ export default class StopWatchContainer extends Component {
                     <Fontisto.Button name ="smiley" backgroundColor="white" color = "lime" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "happy")}>happy</Fontisto.Button>
                 </View>
                 <FlatList data={this.lapArr} renderItem={({item}) => (<Item id = {item.id} hour={item.hour} min={item.min} sec={item.sec} mood={item.mood} />)} />
+                
             </View>
         )
     }
     handleToggle = () => {
+        if(this.state.firstStart){
+            this._onPressAdd()
+        }
         this.setState(
         {
+            firstStart: false,
             start: !this.state.start
         },
         () => this.handleStart()
@@ -130,8 +146,15 @@ export default class StopWatchContainer extends Component {
         if(this.state.start) {
             // turn on Pedometer
             this._subscribe();
-
+            this.setState(
+                {
+                    starttext: 'pause'
+                }
+            );
             this.interval = setInterval(() => {
+                if(this.state.game === 'No game selected'){
+                    this._getGame();
+                }
                 if(this.state.sec !== 59){
                     this.setState({
                         sec: this.state.sec + 1
@@ -152,6 +175,11 @@ export default class StopWatchContainer extends Component {
         }else{
             // turn off Pedometer
             this._unsubscribe();
+            this.setState(
+                {
+                    starttext: 'start'
+                }
+            );
             clearInterval(this.interval);
         }
     };
@@ -171,15 +199,26 @@ export default class StopWatchContainer extends Component {
         this._unsubscribe();
 
         this.setState({
+            game:'No game selected',
             sec: 0,
             min: 0,
             hour: 0,
-
-            start: false
+            starttext: 'start',
+            start: false,
+            firstStart: true
         });
         clearInterval(this.interval);
         this.lapArr = [];
         this.id = 0;
+        this.refs.GameSelectModal.clearGame();
+    }
+    _onPressAdd(){
+        // alert("You add Item.");
+        this.refs.GameSelectModal.showModal();
+        
+    }
+    _getGame(){
+        this.setState({game: this.refs.GameSelectModal.getGame(),});
     }
 }
 function Item({id, hour, min, sec, mood }){
@@ -245,6 +284,10 @@ const styles = StyleSheet.create({
         color: "black",
         fontSize: 20,
         alignSelf: "center"
+    },
+    nonBlurredContent: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     listItem:{
         backgroundColor: "#FFFFFF",
