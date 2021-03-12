@@ -13,7 +13,7 @@ export default function HomeScreen({navigation}){
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const [rec, setRec] = useState("You've played many games recently.\nWhy not take a break?");
-
+  recentSessionReccomendation();
   return (
     <SafeAreaView style={styles.background}>
     <Image source={images.backgroundGreen} style = {styles.backgroundImage}/>
@@ -33,8 +33,8 @@ export default function HomeScreen({navigation}){
         <AwesomeButtonRick type="primary" borderColor= '#76BDE3' borderWidth={2} size="large" onPress={() => navigation.navigate('Log')}>
               <Text style = {styles.primaryButtonText}>Check Logs</Text>
         </AwesomeButtonRick>
-        <AwesomeButtonRick type="primary" borderColor= '#76BDE3' borderWidth={2} size = "large" onPress={() => setRec(recentSessionReccomendation())}>
-            <Text style = {styles.primaryButtonText}>Profile DEBUG</Text>
+        <AwesomeButtonRick type="primary" borderColor= '#76BDE3' borderWidth={2} size = "large" onPress={() => setRec(getRecommendation())}>
+            <Text style = {styles.primaryButtonText}>Refresh Page</Text>
         </AwesomeButtonRick>
         <SafeAreaView style = {{height: '20%'}}></SafeAreaView>
     </SafeAreaView>

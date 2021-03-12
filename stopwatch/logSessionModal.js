@@ -1,4 +1,4 @@
-import React, { useState, Component} from 'react';
+import React, { Component} from 'react';
 import {
     AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput, DatePickerAndroid
 } from 'react-native';
@@ -6,6 +6,11 @@ import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 import logData from '../data/logData.js';
 import { Fontisto } from '@expo/vector-icons';
+import { recentSessionReccomendation } from '../screens/recommendation';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import "firebase/auth";
+import { useState } from 'react';
 
 var screen = Dimensions.get('window');
 
@@ -94,10 +99,19 @@ export default class LogSessionModal extends Component {
             "id": newKey,
             "game": this.state.newGame,
             "date": (this.state.newDate).toDateString(),
-            "length": this.state.newLength,
-            "feeling": this.state.newFeeling,
+            "duration": this.state.newLength,
+            "emotion": this.state.newFeeling,
         };
         logData.push(newEntry);
+
+        // add to Firebase Firestore and update recommendation
+        var user = firebase.auth().currentUser;
+        firebase.firestore().collection('Users').doc(user.uid).update({
+            logData : firebase.firestore.FieldValue.arrayUnion( newEntry )
+          });
+
+        recentSessionReccomendation();
+
         console.log(logData);
         this.state.newGame = "";
         this.state.newLength = 0;

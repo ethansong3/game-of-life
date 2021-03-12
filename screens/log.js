@@ -43,7 +43,7 @@ export default function LogScreen({navigation}){
   const windowHeight = useWindowDimensions().height;
   return (
     <SafeAreaView style={[style.background, {backgroundColor: "#e4f2ee"}]}>
-        <AwesomeButtonRick style={style.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')} height={30} width={80}>
+        <AwesomeButtonRick style={style.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Home')} height={30} width={80}>
           Back
         </AwesomeButtonRick>
         <FlatListItem></FlatListItem>
