@@ -3,27 +3,32 @@
         {
             "name": "Stardew Valley",
             "description": "This is the Platonic ideal of a chill-out game. Stardew Valley is ostensibly a farming simulator, but it also has exploration, puzzle-solving, dating, fishing, cooking, and a healthy dose of the occult. It can be a little overwhelming at first, but its easy-to-learn-hard-to-master mechanics will suck you in without stressing you out too much.",
-            "tags": ["therapy", "solo"]
+            "tags": ["therapy", "solo", "pc"]
         },
         {
             "name": "Minecraft",
             "description": "Minecraft is a video game in which players create and break apart various kinds of blocks in three-dimensional worlds. The game's two main modes are Survival and Creative. In Survival, players must find their own building supplies and food. They also interact with blocklike mobs, or moving creatures.",
-            "tags": ["therapy", "solo", "multiplayer"]
+            "tags": ["therapy", "solo", "multiplayer", "pc", "iphone", "xbox1"]
         },
         {
             "name":"Animal Crossing",
             "description": "In Animal Crossing, the player character is a human who lives in a village inhabited by various anthropomorphic animals, carrying out various activities such as fishing, bug catching, and fossil hunting.",
-            "tags": ["therapy", "solo", "multiplayer"]
+            "tags": ["therapy", "solo", "multiplayer","pc"]
         },
         {
             "name": "League of Legends",
             "description": "League of Legends is one of the world's most popular video games, developed by Riot Games. It features a team-based competitive game mode based on strategy and outplaying opponents. Players work with their team to break the enemy Nexus before the enemy team breaks theirs.",
-            "tags": ["Riot Games", "dangerous", "multiplayer"]
+            "tags": ["Riot Games", "dangerous", "multiplayer", "pc", "iphone"]
         },
         {
             "name": "osu!",
             "description": "Osu! is a rhythm game primarily developed, published and created by Dean Herbert. Osu! has received generally positive reviews, and is also sometimes recommended by professional players of other games to practice or warm up.",
-            "tags": ["solo", "music", "rhythm"]
+            "tags": ["solo", "music", "rhythm", "pc"]
+        },
+        {
+            "name": "Fortnite Battle Royale",
+            "description": "a player-versus-player game for up to 100 players, allowing one to play alone, in a duo, or in a squad (usually consisting of three or four players). Weaponless players airdrop from a Battle Bus that crosses the game's map. When they land, they must scavenge for weapons, items, resources, and even vehicles while trying to stay alive and to attack and eliminate other players. Over the course of a round, the safe area of the map shrinks down in size due to an incoming toxic storm; players outside that threshold take damage and can be eliminated if they fail to quickly evacuate. This forces remaining players into tighter spaces and encourages player encounters. The last player, duo, or squad remaining is the winner.",
+            "tags": ["solo", "multiplayer", "pc", "shooter", "iphone", "android", "xbox1", "ps5", "nswitch"]
         }
     ]
 }

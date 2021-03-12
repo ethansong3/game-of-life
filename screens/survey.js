@@ -29,14 +29,12 @@ export default function SurveyScreen({navigation}){
   const [averageSessionLength, setAverageSessionLength] = useState(0);
   const [soloOrMultiplayer, setSoloOrMultiplayer] = useState('');
   const [devices, setDevices] = useState([]);
+  const [genres, setGenres] = useState([]);
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
 
   const ref_input2 = useRef();
   const ref_input3 = useRef();
-  const ref_input4 = useRef();
-  const ref_input5 = useRef();
-  
 
   return (
     <SafeAreaView style={[styles.background]}>
@@ -135,7 +133,7 @@ export default function SurveyScreen({navigation}){
               {label: 'Playstation 5', value: 'ps5'}
             ]}
             defaultValue={[]}
-            placeholder="Select devices"
+            placeholder="Select device(s)"
             multiple={true}
             multipleText="%d items have been selected."
             min={0}
@@ -148,10 +146,37 @@ export default function SurveyScreen({navigation}){
               item // array of selected items
           )}
         />
+        <Text style = {[styles.headerSubText, {color: "#23a190"}]}>What kind of games do you like to play?</Text>
+        <DropDownPicker
+            zIndex={3000}
+            items={[
+              {label: 'Shooter', value: 'shooter'},
+              {label: 'Role-Playing', value: 'rpg'},
+              {label: 'Action', value: 'action'},
+              {label: 'Action-adventure', value: 'action-adventure'},
+              {label: 'Simulation', value: 'simulation'},
+              {label: 'Strategy', value: 'strategy'},
+              {label: 'Sports', value: 'sports'},
+              {label: 'Puzzle', value: 'puzzle'}
+            ]}
+            defaultValue={[]}
+            placeholder="Select genre(s)"
+            multiple={true}
+            multipleText="%d items have been selected."
+            min={0}
+            max={8}
+            containerStyle={{alignSelf: 'center', height: 40, width:300}}
+            itemStyle={{
+                justifyContent: 'flex-start'
+            }}
+            onChangeItem={item => setGenres(
+              item // array of selected items
+          )}
+        />
 
         <Text style={{height:30}}/>
         
-        <AwesomeButtonRick style={{alignSelf: 'center'}} type = "anchor" size = "large" disabled = {!canSubmit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices)} onPress = {() => submit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices)}>
+        <AwesomeButtonRick style={{alignSelf: 'center'}} type = "anchor" size = "large" disabled = {!canSubmit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices)} onPress = {() => submit({navigation}, averageWeeklyHours, goalHours, averageSessionLength, soloOrMultiplayer, devices, genres)}>
           <Text style = {styles.anchorButtonText}>Next</Text>
         </AwesomeButtonRick>         
       </ScrollView>
@@ -159,12 +184,12 @@ export default function SurveyScreen({navigation}){
   )
 }
 
-function canSubmit({navigation}, q1, q2, q3, q4, q5){
-  if (q1 == 0 || q2 == -1 || q3 == 0|| q4 == "" || q5 == []) return false;
+function canSubmit({navigation}, q1, q2, q3, q4, q5, q6){
+  if (q1 == 0 || q2 == -1 || q3 == 0|| q4 == "" || q5 == [] || q6 == []) return false;
   return true;
 }
 
-function submit({navigation}, q1, q2, q3, q4, q5){
+function submit({navigation}, q1, q2, q3, q4, q5, q6){
   // firebase.auth().createUserWithEmailAndPassword(user, pw)
   // .then((userCredential) => {
   //   // Signed in
@@ -177,7 +202,8 @@ function submit({navigation}, q1, q2, q3, q4, q5){
     goalHours: q2,
     averageSessionLength: q3,
     soloOrMultiplayer: q4,
-    devices: q5
+    devices: q5,
+    genres: q6
   });
   //   // add to Firestore
   //   return firebase.firestore().collection('Users').doc(USER_INFO.uid)
