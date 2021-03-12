@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { useWindowDimensions, StyleSheet, Image, Text, SafeAreaView, Button, TextInput, Alert } from 'react-native';
+import { Animated, Easing, useWindowDimensions, StyleSheet, Image, Text, SafeAreaView, Button, TextInput, Alert } from 'react-native';
 import * as firebase from 'firebase';
 import styles from './style';
 import images from './images';
@@ -18,13 +18,31 @@ const firebaseConfig = {
   measurementId: "G-4L1EWPSGLR"
 };
 
+rotation = new Animated.Value(0);
+Animated.loop(
+  Animated.timing(
+    this.rotation,
+    {
+      toValue: 1,
+      duration: 30000,
+      easing: Easing.linear,
+      useNativeDriver: true
+    }
+  )
+).start()
+
+const spin = this.rotation.interpolate({
+  inputRange: [0, 1],
+  outputRange: ["0deg", "360deg"]
+})
+
 export default function WelcomeScreen({navigation}){
   return (
     <SafeAreaView style={styles.background}>
       <Image source={images.background} style = {[styles.backgroundImage, {backgroundColor: '#0A5BA1'}]}/>
       <SafeAreaView style = {styles.blank}></SafeAreaView>
       <SafeAreaView style = {styles.header}>
-        <Image style = {{width: 80, height: 80}} source={images.logo}/>
+        <Animated.Image style = {[{width: 70, height: 70}, {transform: [{rotate: spin}]}]} source={images.logo}/>
         <Text style = {styles.headerText}>Welcome!</Text>
         <Text style = {styles.headerSubText}> To see your log, sign in or create an account. </Text>
       </SafeAreaView>
