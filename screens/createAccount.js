@@ -40,8 +40,8 @@ export default function createAccountScreen({navigation}){
                             height={windowHeight/18} width={windowWidth/3}>
         skip to survey screen
       </AwesomeButtonRick>
-      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
-                            height={windowHeight/18} width={windowWidth/4}>
+      <AwesomeButtonRick style={styles.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                            height={30} width={80}>
         Back
       </AwesomeButtonRick>
       <Text style={[styles.headerText, {color: "#2e84b1"}]}>Let's make an account!</Text>

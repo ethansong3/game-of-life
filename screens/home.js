@@ -16,10 +16,10 @@ export default function HomeScreen({navigation}){
 
   return (
     <SafeAreaView style={styles.background}>
-    <Image source={images.backgroundLight} style = {styles.backgroundImage}/>
+    <Image source={images.backgroundGreen} style = {styles.backgroundImage}/>
       <SafeAreaView style = {styles.blank}></SafeAreaView>
-      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
-                            height={windowHeight/18} width={windowWidth/4}>
+      <AwesomeButtonRick style={styles.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                            height={30} width={80}>
         Sign Out
       </AwesomeButtonRick>
       <SafeAreaView style = {{height: '1%'}}></SafeAreaView>
@@ -47,4 +47,3 @@ function test(){
   // console.log(user);
   ;
 }
-

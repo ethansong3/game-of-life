@@ -5,7 +5,7 @@ import { TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, 
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import FlatListItem from '../stopwatch/entrylist.js';
-
+import style from './style';
 import logData from '../data/logData.js';
 
 function Item({ id, game, date, length, feeling }){
@@ -41,7 +41,7 @@ export default function LogScreen({navigation}){
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.4,top:windowHeight/80}} onPress={() => navigation.navigate('New Entry')}
                             height={windowHeight/15} width={windowWidth/3.8}>
         New Session
@@ -54,12 +54,12 @@ export default function LogScreen({navigation}){
           <Item id={item.id} game={item.game} date={item.date} length={item.length} feeling={item.feeling} />
         )} /> */}
         {/* <View style={styles.space}/> */}
-        <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Home')}
-                              height={windowHeight/18} width={windowWidth/4}>
+        <AwesomeButtonRick style={style.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                              height={30} width={80}>
           Back
         </AwesomeButtonRick>
         <FlatListItem></FlatListItem>
-    </View>
+    </SafeAreaView>
 
   )
 }

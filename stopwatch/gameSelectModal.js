@@ -1,12 +1,13 @@
 import React, { useState, Component} from 'react';
 import {
-    AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput, DatePickerAndroid
+    AppRegistry, FlatList, StyleSheet, Text, SafeAreaView, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput, DatePickerAndroid
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 import gameList from '../data/gameList.js';
-
+import styles from '../screens/style';
+import images from '../screens/images';
 var screen = Dimensions.get('window');
 export default class GameSelectModal extends Component {
     constructor(props) {
@@ -21,18 +22,18 @@ export default class GameSelectModal extends Component {
     getGame = () => {return this.selectedGame;};
 
     clearGame = () => {this.selectedGame = 'No game selected';};
-    
+
     onChange = (event, selectedDate) => {
         const currentDate = selectedDate || this.state.newDate;
         this.state.show = Platform.OS === 'ios';
         this.state.newDate = currentDate;
     };
-    
+
     showMode = (currentMode) => {
         this.state.show = true;
         this.state.mode = currentMode;
     };
-    
+
     showModal = () => {
         this.refs.myModal.open();
     }
@@ -44,7 +45,7 @@ export default class GameSelectModal extends Component {
                 style={{
                     justifyContent: 'center',
                     borderRadius: Platform.OS === 'ios' ? 30 : 0,
-                    shadowRadius: 10,
+                    shadowRadius: 100,
                     width: screen.width - 80,
                     height: 400
                 }}
@@ -56,18 +57,19 @@ export default class GameSelectModal extends Component {
                     fontWeight:'bold',
                     textAlign: 'center',
                     marginTop: 0,
+                    paddingBottom: 10
                 }}>What game are you playing?</Text>
                 <DropDownPicker
                     zIndex={5000}
                     items={gameList}
                     defaultValue={null}
                     placeholder="Select a game"
-                    containerStyle={{alignSelf: 'center', height: 40, width:300}}
-                    style={{ backgroundColor: '#fafafa'}}
+                    containerStyle={[styles.dropDownBox, {alignSelf: 'center', height: 40, width:210}]}
+                    style={[styles.dropDownBoxContents, {borderTopLeftRadius: 20}, {borderTopRightRadius: 20}, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
                     itemStyle={{
                         justifyContent: 'flex-start'
                     }}
-                    dropDownStyle={{backgroundColor: '#fafafa'}}
+                    dropDownStyle={[styles.dropDownBoxContents, {borderBottomRightRadius: 20}, {borderBottomLeftRadius: 20}]}
                     onChangeItem={item => this.setState({
                         game: item.value
                     })
@@ -83,7 +85,7 @@ export default class GameSelectModal extends Component {
                         height: 40,
                         borderRadius: 6,
                         backgroundColor: '#00B7C6'
-                    }}  
+                    }}
                     onPress={() => {
                         if (this.state.game == '') {
                             alert("Please select a game.");

@@ -40,10 +40,10 @@ export default function SurveyScreen({navigation}){
     <SafeAreaView style={[styles.background]}>
     <Image source={images.backgroundGreen} style={[styles.backgroundImage, {backgroundColor: "#C7FEFF"}]}/>
     <SafeAreaView style = {styles.blank}></SafeAreaView>
-      <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
-                            height={windowHeight/18} width={windowWidth/4}>
-        Back
-      </AwesomeButtonRick>
+    <AwesomeButtonRick style={styles.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
+                          height={30} width={80}>
+      Back
+    </AwesomeButtonRick>
       <ScrollView contentContainerStyle={{paddingVertical: 20}}>
         {/* <AwesomeButtonRick style={{position:'absolute', right:windowWidth/1.4,top:windowHeight/15}} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
                               height={windowHeight/18} width={windowWidth/4}>

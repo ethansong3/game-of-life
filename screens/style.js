@@ -1,4 +1,8 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
+
+let screenWidth = Dimensions.get('window').width;
+let screenHeight = Dimensions.get('window').height;
 
 module.exports = StyleSheet.create
 (
@@ -50,10 +54,11 @@ module.exports = StyleSheet.create
     {
       height: '20%',
       width: '93%',
-      backgroundColor: '#DFFFC7',
+      backgroundColor: '#FAFAFA',
       borderColor: "#C7E8AE",
       borderWidth: 2,
       borderRadius: 50,
+      padding: 15,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -76,6 +81,29 @@ module.exports = StyleSheet.create
     dropDownBoxContents:
     {
       backgroundColor: '#FAFAFA'
+    },
+    timer:
+    {
+      height: '10%',
+      width: '93%',
+      backgroundColor: '#FAFAFA',
+      borderColor: "#6FDCCE",
+      borderWidth: 2,
+      borderRadius: 50,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    timerText:
+    {
+      fontSize: 36,
+      color: "#1EAE6A"
+    },
+    signOutButton:
+    {
+      position: 'absolute',
+      right: screenWidth / 1.4,
+      top: screenHeight / 15
     },
     primaryButtonText: // Text design for primary buttons
     {
