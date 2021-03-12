@@ -1,9 +1,8 @@
 import { Alert, StyleSheet, Text, View, TouchableOpacity, BackHandler, FlatList, useWindowDimensions, Dimensions} from 'react-native';
 import  React, { Component } from 'react';
-import { BlurView } from 'expo-blur';
 import { Fontisto } from '@expo/vector-icons';
-import GameSelectModal from './gameSelectModal.js'
-
+import GameSelectModal from './gameSelectModal.js';
+import LogSessionModal from './logSessionModal.js';
 import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 import { Constants, Accelerometer, Pedometer } from 'expo-sensors';
 //from https://codersera.com/blog/first-react-native-app-stopwatch/
@@ -29,7 +28,8 @@ export default class StopWatchContainer extends Component {
         this.id = 0;
         this.lapArr = [];
         this.interval = null;
-        this._onPressAdd = this._onPressAdd.bind(this);
+        this._onPressGameAdd = this._onPressGameAdd.bind(this);
+        this._onPressLogSession = this._onPressLogSession.bind(this);
         const gameData = require('../data/gameData.json');
         console.log(gameData.name);
         
@@ -103,7 +103,9 @@ export default class StopWatchContainer extends Component {
         return (
             
             <View style={styles.container}> 
+                <AwesomeButtonCartman style={{marginTop:50}}onPress = {()=>this.state.hour++}>add 1 hour</AwesomeButtonCartman>
                 <GameSelectModal ref={'GameSelectModal'} ></GameSelectModal>
+                <LogSessionModal ref={'LogSessionModal'} ></LogSessionModal>
                 {/* <Text style={{marginLeft: 50, marginTop:100}}>x = {this.state.accelerometerData.x.toFixed(2)}{', '}
                 y = {this.state.accelerometerData.y.toFixed(2)}{', '}
                 z = {this.state.accelerometerData.z.toFixed(2)}</Text>  
@@ -132,7 +134,7 @@ export default class StopWatchContainer extends Component {
     }
     handleToggle = () => {
         if(this.state.firstStart){
-            this._onPressAdd()
+            this._onPressGameAdd()
         }
         this.setState(
         {
@@ -196,26 +198,32 @@ export default class StopWatchContainer extends Component {
     };
     handleReset = () => {
         // turn off Pedometer
-        this._unsubscribe();
-
-        this.setState({
-            game:'No game selected',
-            sec: 0,
-            min: 0,
-            hour: 0,
-            starttext: 'start',
-            start: false,
-            firstStart: true
-        });
-        clearInterval(this.interval);
-        this.lapArr = [];
-        this.id = 0;
-        this.refs.GameSelectModal.clearGame();
+        if(!this.state.firstStart){
+            this._unsubscribe();
+            this._onPressLogSession();
+            this.setState({
+                game:'No game selected',
+                sec: 0,
+                min: 0,
+                hour: 0,
+                starttext: 'start',
+                start: false,
+                firstStart: true
+            });
+            clearInterval(this.interval);
+            this.lapArr = [];
+            this.id = 0;
+            this.refs.GameSelectModal.clearGame();
+        }
     }
-    _onPressAdd(){
+    _onPressGameAdd(){
         // alert("You add Item.");
         this.refs.GameSelectModal.showModal();
-        
+    }
+    _onPressLogSession(){
+        this.refs.LogSessionModal.setTime(this.state.hour);
+        this.refs.LogSessionModal.setGame(this.state.game);
+        this.refs.LogSessionModal.showModal();
     }
     _getGame(){
         this.setState({game: this.refs.GameSelectModal.getGame(),});

@@ -45,8 +45,8 @@ export default function App() {
         <Stack.Screen  name='Create Account' component={CreateAccountScreen}/>
         <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Survey' component={SurveyScreen}/>
         <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Home' component={HomeScreen}/>
-        <Stack.Screen  name='Play' component={PlayScreen}/>
-        <Stack.Screen  name='Log' component={LogScreen}/>
+        <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Play' component={PlayScreen}/>
+        <Stack.Screen  options={{headerLeft: null, gestureEnabled: false}} name='Log' component={LogScreen}/>
         <Stack.Screen  name='New Entry' component={NewEntryScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
