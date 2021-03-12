@@ -22,6 +22,8 @@ const firebaseConfig = {
 };
 
 export default function AuthScreen({navigation}){
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   const [user_text, setUser_text] = useState('');
   const [pw_text, setPw_text] = useState('');
   const ref_input2 = useRef();
