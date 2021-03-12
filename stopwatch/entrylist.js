@@ -4,11 +4,20 @@ import Swipeout from 'react-native-swipeout';
 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
-import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
+import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import AddModal from './AddModal';
 // import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions';
 
 import logData from "../data/logData.js"
+import styles from '../screens/style';
+import images from '../screens/images';
+import { Fontisto } from '@expo/vector-icons';
+
+var dict = {
+  "happy": "smiley",
+  "ok": "neutral",
+  "angry": "mad"
+}
 
 class FlatListItem extends Component {
 
@@ -55,7 +64,7 @@ class FlatListItem extends Component {
             ],
             rowId: this.props.index,
             sectionId: 1,
-            backgroundColor: 'white'
+            backgroundColor: 'transparent'
         };
 
         return (
@@ -64,38 +73,28 @@ class FlatListItem extends Component {
                 flex: 1,
                 flexDirection:'column',
                 alignItems: 'center',
-                backgroundColor: 'white',
+                backgroundColor: 'transparent',
                 marginVertical: 5
                 }}>
-
-                    <AwesomeButtonCartman placeholder type="secondary" height={100} width={350} flex={1} flexDirection={'column'} alignItems={'stretch'}>
-                        <Text style={styles.flatListItem}>{this.props.item.game}</Text>
-                        <Text style={styles.flatListItem}>{this.props.item.date}</Text>
-                        <Text style={styles.flatListItem}>{this.props.item.length}</Text>
-                        <Text style={styles.flatListItem}>{this.props.item.feeling}</Text>
-                    </AwesomeButtonCartman>
+                    <AwesomeButtonRick placeholder disabled = {true} height={100} width={350} flex={1} flexDirection={'column'} alignItems={'stretch'} backgroundColor="#FAFAFA" borderColor="#a3e3c4" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
+                        <Fontisto.Button name = {dict[this.props.item.feeling]} paddingLeft = {0} size = {40} height = {60} width = {80} disabled = {true} backgroundColor="transparent"color = "#53b56b"></Fontisto.Button>
+                        <View>
+                        <Text style={[styles.primaryButtonText, {color: "#53b56b"}]}>{this.props.item.date} </Text>
+                        <Text style={[styles.primaryButtonText, {color: "#53b56b"}]}>{this.props.item.game} </Text>
+                        <Text style={[styles.primaryButtonText, {color: "#53b56b"}]}>{this.props.item.length} </Text>
+                        </View>
+                    </AwesomeButtonRick>
                 </View>
             </Swipeout>
         );
     }
 }
-const styles = StyleSheet.create({
-    flatListItem: {
-        color: 'white',
-        padding: 10,
-        fontSize: 14,
-        alignItems: "flex-start",
-    },
-    listDate: {
-      flex: 0.5,
-      alignItems: "flex-start",
-      left: 10
-    },
-    listDetails: {
-      flex: 0.3,
-      alignItems: "flex-end",
-    }
-});
+
+function getEmotion(feeling)
+{
+  console.log(feeling);
+  return dict[feeling];
+}
 
 export default class BasicFlatList extends Component {
     constructor(props) {
@@ -122,10 +121,10 @@ export default class BasicFlatList extends Component {
     render() {
       return (
         <View style={{flex: 1, marginTop: 10}}>
-            <AwesomeButtonCartman marginTop={10} style={{position:'absolute', top: 10, right: 10}} onPress={() => this._onPressAdd()}
-                height={60} width={100}>
+            <AwesomeButtonRick marginTop={10} type = "anchor" style={[styles.signOutButton, {position:'absolute'}, {top: 5}, {right: 10}]} onPress={() => this._onPressAdd()}
+                height={30} width={110}>
                 New Session
-            </AwesomeButtonCartman>
+            </AwesomeButtonRick>
             <View style={{height: 85}}/>
             <FlatList
                 data={logData}

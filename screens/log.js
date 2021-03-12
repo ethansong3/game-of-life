@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, View, Button, TextInput, FlatList, Alert } from 'react-native';
+import { ImageBackground, TouchableOpacity, SafeAreaView, useWindowDimensions, StyleSheet, Text, View, Button, TextInput, FlatList, Alert } from 'react-native';
 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonRick from "react-native-really-awesome-button/src/themes/rick";
 import FlatListItem from '../stopwatch/entrylist.js';
 import style from './style';
+import images from './images';
 import logData from '../data/logData.js';
 
 function Item({ id, game, date, length, feeling }){
@@ -41,21 +42,8 @@ export default function LogScreen({navigation}){
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <AwesomeButtonCartman style={{position:'absolute', left:windowWidth/1.4,top:windowHeight/80}} onPress={() => navigation.navigate('New Entry')}
-                            height={windowHeight/15} width={windowWidth/3.8}>
-        New Session
-      </AwesomeButtonCartman> */}
-      {/* <View style={styles.space}/>
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={logData}
-        renderItem={({item}) => (
-          <Item id={item.id} game={item.game} date={item.date} length={item.length} feeling={item.feeling} />
-        )} /> */}
-        {/* <View style={styles.space}/> */}
-        <AwesomeButtonRick style={style.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')}
-                              height={30} width={80}>
+    <SafeAreaView style={[style.background, {backgroundColor: "#e4f2ee"}]}>
+        <AwesomeButtonRick style={style.signOutButton} type="secondary" size="small" onPress={() => navigation.navigate('Welcome')} height={30} width={80}>
           Back
         </AwesomeButtonRick>
         <FlatListItem></FlatListItem>
