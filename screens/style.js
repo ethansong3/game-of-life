@@ -37,8 +37,10 @@ module.exports = StyleSheet.create
     },
     headerSubText:
     {
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingBottom: 5,
+      paddingTop: 5,
       color: '#AAD3EA',
       textAlign: 'center',
       lineHeight: 20,
@@ -64,6 +66,16 @@ module.exports = StyleSheet.create
         fontWeight: 'bold',
         textAlign: 'center',
         lineHeight: 24
+    },
+    dropDownBox:
+    {
+      alignSelf: 'center',
+      height: 40,
+      width: 260
+    },
+    dropDownBoxContents:
+    {
+      backgroundColor: '#FAFAFA'
     },
     primaryButtonText: // Text design for primary buttons
     {

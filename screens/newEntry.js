@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 // https://www.npmjs.com/package/react-native-really-awesome-button
 import AwesomeButton from "react-native-really-awesome-button";
-import AwesomeButtonCartman from 'react-native-really-awesome-button/src/themes/cartman';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCs-wd6aoy3D8_qwxmKsQ01rrbzym0NNdM",
@@ -26,7 +25,7 @@ export default function newEntryScreen({navigation}){
   return (
     <View style={styles.container}>
       <Text>Nothing yet.</Text>
-      
+
     </View>
   )
 }
