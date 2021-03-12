@@ -62,7 +62,14 @@ export default class StopWatchContainer extends Component {
         this._subscription = null;
       };
 
-    componentWillMount() {
+    // componentWillMount() {
+    //     const { width, height } = Dimensions.get('window');
+    //     this.screenWidth = width;
+    //     this.screenHeight = height;
+    //     this.boxWidth = this.screenWidth/10.0
+    // }
+
+    componendDidMount() {
         const { width, height } = Dimensions.get('window');
         this.screenWidth = width;
         this.screenHeight = height;
