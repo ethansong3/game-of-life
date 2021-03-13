@@ -16,6 +16,8 @@ const firebaseConfig = {
 };
 
 let status = "You've played many games recently.\nWhy not take a break?";
+let session_status_header = 'Welcome!';
+let session_status = "Good luck, have fun.";
 
 // Updates the recommendation
 export function updateRecommendation(new_status)
@@ -77,10 +79,50 @@ export function differentGameReccomendation()
           }
         }
         console.log(possibilities);
-        if (recentSession.emotion == 'happy'){
+        if (recentSession.emotion == 'upset'){
           var rec = "It seems like "+recentSession.game+" isn't working out for you :(, try "+possibilities[Math.floor(Math.random() * possibilities.length)]+".";
           status = rec;
           console.log(rec);
+        }
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+}
+
+export function differentGameReccomendation2(game, emotion)
+{
+  var UserDocRef = firebase.firestore().collection('Users').doc((firebase.auth().currentUser).uid);
+  UserDocRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Most recent session:", doc.data().logData[doc.data().logData.length - 1]);
+        var recentSession = doc.data().logData[doc.data().logData.length - 1];
+        var possibilities = [];
+        // gets all games that matches user's personal devices.
+        for(var i = 0; i < doc.data().devices.length; ++i){
+          for(var z = 0; z < tags[doc.data().devices[i]].length; ++z){
+            if(!possibilities.includes(tags[doc.data().devices[i]][z]) && tags[doc.data().devices[i]][z] != game){
+              possibilities.push(tags[doc.data().devices[i]][z]);
+            }
+          }
+        }
+        console.log(possibilities);
+        if (emotion == 'upset'){
+          session_status_header = '(╯°Д°)╯ ┻━┻';
+          var rec = "It seems like "+game+" isn't working out for you :(, try "+possibilities[Math.floor(Math.random() * possibilities.length)]+".";
+          session_status = rec;
+          console.log(rec);
+        }
+        else if (emotion == 'happy'){
+          session_status_header = "(●'◡'●)";
+          session_status = "woo";
+        }
+        else if (emotion == 'ok'){
+          session_status_header = "d(ﾟｰﾟ@)";
+          session_status = "Everything seems to be okay.";
         }
     } else {
         // doc.data() will be undefined in this case
@@ -96,4 +138,12 @@ export function differentGameReccomendation()
 export function getRecommendation()
 {
   return status;
+}
+export function getRecommendation2()
+{
+  return session_status;
+}
+export function getRecHeader()
+{
+  return session_status_header;
 }

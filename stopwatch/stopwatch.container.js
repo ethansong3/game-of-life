@@ -7,6 +7,7 @@ import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/ric
 import styles from '../screens/style';
 import images from '../screens/images';
 import { Constants, Accelerometer, Pedometer } from 'expo-sensors';
+import { differentGameReccomendation2, getRecommendation2, getRecHeader } from '../screens/recommendation.js'
 //from https://codersera.com/blog/first-react-native-app-stopwatch/
 
 let padToTwo = (number) => (number <= 9 ? `0${number}`: number);
@@ -33,7 +34,6 @@ export default class StopWatchContainer extends Component {
         this._onPressGameAdd = this._onPressGameAdd.bind(this);
         this._onPressLogSession = this._onPressLogSession.bind(this);
         const gameData = require('../data/gameData.json');
-        console.log(gameData.name);
 
     }
 
@@ -114,6 +114,8 @@ export default class StopWatchContainer extends Component {
           <SafeAreaView style = {[styles.blank, {height: "100%"}, {alignItems: 'center'}, {justifyContent: "space-evenly"}]}>
             <GameSelectModal ref={'GameSelectModal'}></GameSelectModal>
             <LogSessionModal ref={'LogSessionModal'}></LogSessionModal>
+            <Text style = {[styles.headerText, {color: "#00ACA1"}]}>{getRecHeader()}</Text>
+            <Text style = {[styles.recommendationText, {color: "#00ACA1"}]}>{getRecommendation2()}</Text>
             <Text style = {[styles.headerText, {color: "#00ACA1"}]}>Let's Play a Game.</Text>
             <Text style = {[styles.headerSubText, {color: "#0F928A"}]}>Current Game: {this.state.game}</Text>
             {/* <Text style = {[styles.headerSubText, {color: "#0F928A"}]}>Steps Walked: {this.state.currentStepCount}</Text> */}
@@ -134,7 +136,7 @@ export default class StopWatchContainer extends Component {
                 </AwesomeButtonRick>
              </SafeAreaView>
              <SafeAreaView style = {[{flexDirection: "row"}, {justifyContent: "space-evenly"}, {width: "80%"}]}>
-             <Fontisto.Button name ="mad" backgroundColor="#FAFAFA" color = "#0F928A" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "angry")}>angry</Fontisto.Button>
+             <Fontisto.Button name ="mad" backgroundColor="#FAFAFA" color = "#0F928A" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "upset")}>upset</Fontisto.Button>
       <Fontisto.Button name ="neutral" backgroundColor="#FAFAFA" color = "#0F928A" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "ok")}>ok</Fontisto.Button>
       <Fontisto.Button name ="smiley" backgroundColor="#FAFAFA" color = "#0F928A" onPress={() => this.handleLap(this.id, this.state.hour, this.state.min, this.state.sec, "happy")}>happy</Fontisto.Button>
              </SafeAreaView>
@@ -204,7 +206,8 @@ export default class StopWatchContainer extends Component {
                 ...this.lapArr,
                 {id, hour,min,sec,mood}
             ]
-            console.log(this.lapArr);
+            differentGameReccomendation2(this.state.game, mood);
+
         }
     };
     handleReset = () => {

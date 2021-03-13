@@ -7,6 +7,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import StopWatchContainer from '../stopwatch/stopwatch.container';
 
+import { getRecommendation } from './recommendation.js'
 import styles from './style';
 import images from './images';
 
