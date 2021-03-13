@@ -24,7 +24,8 @@ export default class StopWatchContainer extends Component {
             isPedometerAvailable: 'checking',
             pastStepCount: 0,
             currentStepCount: 0,
-            starttext: 'Start'
+            starttext: 'Start',
+            alert: false
         }
         this.id = 0;
         this.lapArr = [];
@@ -97,9 +98,10 @@ export default class StopWatchContainer extends Component {
         }
 
         // CHANGE TO 30-45 MINUTES!
-        if (this.state.sec % 5000 == 0){
-            if (this.state.sec != 0  && !this.state.hasMovedEnough ){
+        if (this.state.hour % 1 == 0){
+            if (this.state.hour != 0  && !this.state.hasMovedEnough && this.state.alert == false ){
                 this.createAlert("Still alive?", "Rest breaks: Every 30 to 60 minutes, take a brief rest break. During this break, stand up, stretch, move around, and do something else. Drink some water. You'll feel better after a short break.")
+                this.state.alert = true;
             }
             this.state.currentStepCount = 0;
             this.state.hasMovedEnough = false;
@@ -114,7 +116,7 @@ export default class StopWatchContainer extends Component {
             <LogSessionModal ref={'LogSessionModal'}></LogSessionModal>
             <Text style = {[styles.headerText, {color: "#00ACA1"}]}>Let's Play a Game.</Text>
             <Text style = {[styles.headerSubText, {color: "#0F928A"}]}>Current Game: {this.state.game}</Text>
-            <Text style = {[styles.headerSubText, {color: "#0F928A"}]}>Steps Walked: {this.state.currentStepCount}</Text>
+            {/* <Text style = {[styles.headerSubText, {color: "#0F928A"}]}>Steps Walked: {this.state.currentStepCount}</Text> */}
             <SafeAreaView style = {styles.timer}>
               <Text style = {[styles.timerText]}>{padToTwo(this.state.hour) + " : "}</Text>
               <Text style = {[styles.timerText]}>{padToTwo(this.state.min) + " : "}</Text>

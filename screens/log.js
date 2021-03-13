@@ -9,7 +9,7 @@ import style from './style';
 import images from './images';
 import logData from '../data/logData.js';
 
-function Item({ id, game, date, length, feeling }){
+function Item({ id, game, date, length, emotion }){
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
@@ -21,7 +21,7 @@ function Item({ id, game, date, length, feeling }){
 
     Alert.alert(
       "Entry Details",
-      `Game : ${entry.game} \n Date: ${entry.date} \n Length: ${entry.length} \n Feeling: ${entry.feeling}`,
+      `Game : ${entry.game} \n Date: ${entry.date} \n Length: ${entry.length} \n Emotion: ${entry.emotion}`,
     );
 
   };
@@ -32,7 +32,7 @@ function Item({ id, game, date, length, feeling }){
         <Text style={styles.listDate}>{game}</Text>
         <Text style={styles.listDate}>{date}</Text>
         <Text style={styles.listDetails}>{length}</Text>
-        <Text style={styles.listDetails}>{feeling}</Text>
+        <Text style={styles.listDetails}>{emotion}</Text>
       </AwesomeButtonRick>
     </TouchableOpacity>
   )

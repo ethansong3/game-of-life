@@ -22,7 +22,7 @@ export default class AddModal extends Component {
             newGame: '',
             newDate: new Date(),
             newLength: 0,
-            newFeeling: 'ok',
+            newEmotion: 'ok',
             mode: 'date',
             show: false,
         }
@@ -151,9 +151,9 @@ export default class AddModal extends Component {
                 </View>
 
                 <View style={{display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "2%"}}>
-                    <Fontisto.Button name ="mad" backgroundColor="white" color = "red" onPress={() => this.state.newFeeling='upset'}>upset</Fontisto.Button>
-                    <Fontisto.Button name ="neutral" backgroundColor="white" color = "black" onPress={() => this.state.newFeeling='ok'}>ok</Fontisto.Button>
-                    <Fontisto.Button name ="smiley" backgroundColor="white" color = "lime" onPress={() => this.state.newFeeling='happy'}>happy</Fontisto.Button>
+                    <Fontisto.Button name ="mad" backgroundColor="white" color = "red" onPress={() => this.state.newEmotion='upset'}>upset</Fontisto.Button>
+                    <Fontisto.Button name ="neutral" backgroundColor="white" color = "black" onPress={() => this.state.newEmotion='ok'}>ok</Fontisto.Button>
+                    <Fontisto.Button name ="smiley" backgroundColor="white" color = "lime" onPress={() => this.state.newEmotion='happy'}>happy</Fontisto.Button>
                 </View>
 
                 <Button
@@ -178,7 +178,7 @@ export default class AddModal extends Component {
                             "game": this.state.newGame,
                             "date": (this.state.newDate).toDateString(),
                             "length": this.state.newLength,
-                            "feeling": this.state.newFeeling,
+                            "emotion": this.state.newEmotion,
                         };
                         logData.push(newEntry);
                         this.props.parentFlatList.refreshFlatList(newKey);
@@ -186,7 +186,7 @@ export default class AddModal extends Component {
                         this.state.newGame = "";
                         this.state.newLength = 0;
                         this.state.newDate = new Date();
-                        this.state.newFeeling = 'ok';
+                        this.state.newEmotion = 'ok';
                         this.refs.myModal.close();
                     }}
                 >

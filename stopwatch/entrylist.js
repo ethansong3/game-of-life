@@ -78,7 +78,7 @@ class FlatListItem extends Component {
                 marginVertical: 5
                 }}>
                     <AwesomeButtonRick placeholder disabled = {true} height={100} width={350} flex={1} flexDirection={'column'} alignItems={'stretch'} backgroundColor="#FAFAFA" borderColor="#a3e3c4" borderWidth={2} backgroundDarker="transparent" backgroundShadow="transparent" backgroundPlaceholder="transparent">
-                        <Fontisto.Button name = {dict[this.props.item.feeling]} paddingLeft = {0} size = {40} height = {60} width = {80} disabled = {true} backgroundColor="transparent"color = "#53b56b"></Fontisto.Button>
+                        <Fontisto.Button name = {dict[this.props.item.emotion]} paddingLeft = {0} size = {40} height = {60} width = {80} disabled = {true} backgroundColor="transparent"color = "#53b56b"></Fontisto.Button>
                         <View>
                         <Text style={[styles.primaryButtonText, {color: "#53b56b"}]}>{this.props.item.date} </Text>
                         <Text style={[styles.primaryButtonText, {color: "#53b56b"}]}>{this.props.item.game} </Text>
@@ -91,10 +91,10 @@ class FlatListItem extends Component {
     }
 }
 
-function getEmotion(feeling)
+function getEmotion(emotion)
 {
-  console.log(feeling);
-  return dict[feeling];
+  console.log(emotion);
+  return dict[emotion];
 }
 
 export default class BasicFlatList extends Component {
