@@ -13,6 +13,6 @@
 7. By now you should have our project in your hands!
 
 ## Contributors
-- David Lieu
+- David Lieu [ linkedin.com/in/davidlieu1/ ]
 - Ethan Song [ linkedin.com/in/ethansong3 ]
 - Nichole Wong
